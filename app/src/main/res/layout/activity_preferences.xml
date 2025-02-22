@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Pet Type -->
+            <TextView android:text="Select Pet Type" android:textStyle="bold"/>
+            <Spinner android:id="@+id/petTypeSpinner" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+            <!-- Breed -->
+            <TextView android:text="Enter Breed" android:textStyle="bold"/>
+            <EditText android:id="@+id/breedEditText" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Enter breed (optional)"/>
+
+            <!-- Age -->
+            <TextView android:text="Select Age Range" android:textStyle="bold"/>
+            <SeekBar android:id="@+id/ageSeekBar" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="20"/>
+            <TextView android:id="@+id/ageTextView" android:text="Age: 0 years"/>
+
+            <!-- Size -->
+            <TextView android:text="Select Size" android:textStyle="bold"/>
+            <Spinner android:id="@+id/sizeSpinner" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+            <!-- Gender -->
+            <TextView android:text="Select Gender" android:textStyle="bold"/>
+            <RadioGroup android:id="@+id/genderGroup" android:layout_width="match_parent" android:layout_height="wrap_content">
+                <RadioButton android:id="@+id/maleRadio" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Male"/>
+                <RadioButton android:id="@+id/femaleRadio" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Female"/>
+            </RadioGroup>
+
+            <!-- Location -->
+            <TextView android:text="Enter Location" android:textStyle="bold"/>
+            <EditText android:id="@+id/locationEditText" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Enter city, country"/>
+
+            <!-- Energy Level -->
+            <TextView android:text="Select Energy Level" android:textStyle="bold"/>
+            <SeekBar android:id="@+id/energySeekBar" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="10"/>
+            <TextView android:id="@+id/energyTextView" android:text="Energy Level: 0"/>
+
+            <!-- Sociability -->
+            <TextView android:text="Select Sociability" android:textStyle="bold"/>
+            <Spinner android:id="@+id/sociabilitySpinner" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+            <!-- Training Level -->
+            <TextView android:text="Select Training Level" android:textStyle="bold"/>
+            <Spinner android:id="@+id/trainingSpinner" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+            <!-- Special Needs -->
+            <CheckBox android:id="@+id/specialNeedsCheckbox" android:text="This pet has special needs"/>
+
+            <!-- Ready to Conceive -->
+            <TextView android:text="Is this pet ready to conceive?" android:textStyle="bold"/>
+            <Switch android:id="@+id/readyToConceiveSwitch" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+            <!-- Save Button -->
+            <Button android:id="@+id/savePreferencesButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Save Preferences"/>
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

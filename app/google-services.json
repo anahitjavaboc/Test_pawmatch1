@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "310565797446",
+    "project_id": "pawmatchfinal",
+    "storage_bucket": "pawmatchfinal.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:310565797446:android:542d816f9d5014da18d447",
+        "android_client_info": {
+          "package_name": "com.example.pawmatch"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkOyPmLEQreW33Iy9u_N_qjMnTbFuv0hM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:310565797446:android:0e58d9c3e164d34618d447",
+        "android_client_info": {
+          "package_name": "com.example.test_pawmatch"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkOyPmLEQreW33Iy9u_N_qjMnTbFuv0hM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
