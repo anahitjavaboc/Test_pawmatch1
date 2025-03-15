@@ -1,5 +1,3 @@
-package com.example.test_pawmatch;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,33 +9,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import java.util.List;
 
-public class PetSwipeAdapter extends RecyclerView.Adapter<PetSwipeAdapter.ViewHolder> {
-    private Context context;
+public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetViewHolder> {
     private List<Pet> petList;
+    private Context context;
 
-    public PetSwipeAdapter(Context context, List<Pet> petList) {
-        this.context = context;
+    public PetAdapter(List<Pet> petList, Context context) {
         this.petList = petList;
+        this.context = context;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_pet_card, parent, false);
-        return new ViewHolder(view);
+    public PetViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_pet, parent, false);
+        return new PetViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PetViewHolder holder, int position) {
         Pet pet = petList.get(position);
-        holder.petNameText.setText(pet.getName());
-        holder.petBioText.setText(pet.getBio());
-
-        // Load pet image using Glide
-        Glide.with(context)
-                .load(pet.getImageUrl())
-                .placeholder(R.drawable.ic_pet_placeholder)
-                .into(holder.petImageView);
+        holder.petName.setText(pet.getName());
+        Glide.with(context).load(pet.getImageUrl()).into(holder.petImage);
     }
 
     @Override
@@ -45,15 +37,14 @@ public class PetSwipeAdapter extends RecyclerView.Adapter<PetSwipeAdapter.ViewHo
         return petList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView petImageView;
-        TextView petNameText, petBioText;
+    public static class PetViewHolder extends RecyclerView.ViewHolder {
+        TextView petName;
+        ImageView petImage;
 
-        public ViewHolder(View itemView) {
+        public PetViewHolder(@NonNull View itemView) {
             super(itemView);
-            petImageView = itemView.findViewById(R.id.petImageView);
-            petNameText = itemView.findViewById(R.id.petNameText);
-            petBioText = itemView.findViewById(R.id.petBioText);
+            petName = itemView.findViewById(R.id.pet_name);
+            petImage = itemView.findViewById(R.id.pet_image);
         }
     }
 }

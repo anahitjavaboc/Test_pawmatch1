@@ -42,6 +42,7 @@
                 android:id="@+id/petBioEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autofillHints=""
                 android:hint="Write a short bio about your pet"
                 android:minLines="3"
                 android:maxLines="5"/>
