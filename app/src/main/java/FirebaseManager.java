@@ -1,12 +1,7 @@
-package com.example.pawmatch.utils;
-
-import android.net.Uri;
-import com.example.pawmatch.models.Match;
-import com.example.pawmatch.models.Message;
-import com.example.pawmatch.models.Pet;
 import com.example.pawmatch.models.UserPreferences;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
@@ -181,9 +176,91 @@ public class FirebaseManager {
                 .addOnFailureListener(listener::onError);
     }
 
+    // Vaccination Operations
+    public void addVaccination(String petId, Pet.Vaccination vaccination, FirebaseCallback callback) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference petRef = db.collection("pets").document(petId);
+
+        petRef.get().addOnSuccessListener(documentSnapshot -> {
+            Pet pet = documentSnapshot.toObject(Pet.class);
+            if (pet != null) {
+                List<Pet.Vaccination> vaccinations = pet.getVaccinations();
+                if (vaccinations == null) {
+                    vaccinations = new ArrayList<>();
+                }
+                vaccinations.add(vaccination);
+                pet.setVaccinations(vaccinations);
+
+                petRef.set(pet)
+                        .addOnSuccessListener(aVoid -> callback.onSuccess())
+                        .addOnFailureListener(e -> callback.onError(e.getMessage()));
+            } else {
+                callback.onError("Pet not found");
+            }
+        }).addOnFailureListener(e -> callback.onError(e.getMessage()));
+    }
+
+    public void updateVaccination(String petId, Pet.Vaccination oldVaccination, Pet.Vaccination newVaccination, FirebaseCallback callback) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference petRef = db.collection("pets").document(petId);
+
+        petRef.get().addOnSuccessListener(documentSnapshot -> {
+            Pet pet = documentSnapshot.toObject(Pet.class);
+            if (pet != null) {
+                List<Pet.Vaccination> vaccinations = pet.getVaccinations();
+                if (vaccinations != null) {
+                    int index = vaccinations.indexOf(oldVaccination);
+                    if (index != -1) {
+                        vaccinations.set(index, newVaccination);
+                        pet.setVaccinations(vaccinations);
+
+                        petRef.set(pet)
+                                .addOnSuccessListener(aVoid -> callback.onSuccess())
+                                .addOnFailureListener(e -> callback.onError(e.getMessage()));
+                    } else {
+                        callback.onError("Vaccination not found");
+                    }
+                } else {
+                    callback.onError("No vaccinations found");
+                }
+            } else {
+                callback.onError("Pet not found");
+            }
+        }).addOnFailureListener(e -> callback.onError(e.getMessage()));
+    }
+
+    public void deleteVaccination(String petId, Pet.Vaccination vaccination, FirebaseCallback callback) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference petRef = db.collection("pets").document(petId);
+
+        petRef.get().addOnSuccessListener(documentSnapshot -> {
+            Pet pet = documentSnapshot.toObject(Pet.class);
+            if (pet != null) {
+                List<Pet.Vaccination> vaccinations = pet.getVaccinations();
+                if (vaccinations != null) {
+                    vaccinations.remove(vaccination);
+                    pet.setVaccinations(vaccinations);
+
+                    petRef.set(pet)
+                            .addOnSuccessListener(aVoid -> callback.onSuccess())
+                            .addOnFailureListener(e -> callback.onError(e.getMessage()));
+                } else {
+                    callback.onError("No vaccinations found");
+                }
+            } else {
+                callback.onError("Pet not found");
+            }
+        }).addOnFailureListener(e -> callback.onError(e.getMessage()));
+    }
+
     // Callback interface
     public interface OnCompleteListener<T> {
         void onSuccess(T result);
         void onError(Exception e);
     }
-}
+
+    public interface FirebaseCallback {
+        void onSuccess();
+        void onError(String message);
+    }
+} 

@@ -20,7 +20,22 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            // ... existing code ...
+
+            <activity
+                android:name=".activities.PetProfileCreationActivity"
+                android:exported="false"
+                android:label="Create Pet Profile" />
+
+            <activity
+                android:name=".activities.VaccinationManagementActivity"
+                android:exported="false"
+                android:label="Manage Vaccinations" />
+
+            // ... existing code ...
         </activity>
+
+
     </application>
 
 </manifest>
