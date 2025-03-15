@@ -16,7 +16,8 @@ public class SignInActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private EditText emailEditText, passwordEditText;
     private Button signInButton, guestButton;
-    private TextView signUpText;
+    private TextView signUpText, forgotPasswordText;
+    private View progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +30,13 @@ public class SignInActivity extends AppCompatActivity {
         signInButton = findViewById(R.id.signInButton);
         guestButton = findViewById(R.id.guestButton);
         signUpText = findViewById(R.id.signUpText);
+        forgotPasswordText = findViewById(R.id.forgotPasswordText);
+        progressBar = findViewById(R.id.progressBar);
 
         signInButton.setOnClickListener(view -> signInUser());
         guestButton.setOnClickListener(view -> enterGuestMode());
         signUpText.setOnClickListener(view -> startActivity(new Intent(this, SignUpActivity.class)));
+        forgotPasswordText.setOnClickListener(view -> resetPassword());
     }
 
     private void signInUser() {
@@ -44,13 +48,60 @@ public class SignInActivity extends AppCompatActivity {
             return;
         }
 
+        progressBar.setVisibility(View.VISIBLE);
+        signInButton.setEnabled(false);
+
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        startActivity(new Intent(SignInActivity.this, PreferencesActivity.class));
-                        finish();
+                        FirebaseUser user = auth.getCurrentUser();
+                        if (user != null) {
+                            if (user.isEmailVerified()) {
+                                startActivity(new Intent(SignInActivity.this, PreferencesActivity.class));
+                                finish();
+                            } else {
+                                progressBar.setVisibility(View.GONE);
+                                signInButton.setEnabled(true);
+                                Toast.makeText(this, "Please verify your email first", Toast.LENGTH_LONG).show();
+                                user.sendEmailVerification()
+                                        .addOnCompleteListener(emailTask -> {
+                                            if (emailTask.isSuccessful()) {
+                                                Toast.makeText(this, "Verification email sent", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                            }
+                        }
                     } else {
-                        Toast.makeText(this, "Authentication failed", Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.GONE);
+                        signInButton.setEnabled(true);
+                        String errorMessage = "Authentication failed";
+                        if (task.getException() != null) {
+                            errorMessage = task.getException().getMessage();
+                        }
+                        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void resetPassword() {
+        String email = emailEditText.getText().toString().trim();
+        if (email.isEmpty()) {
+            Toast.makeText(this, "Please enter your email address", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        progressBar.setVisibility(View.VISIBLE);
+        auth.sendPasswordResetEmail(email)
+                .addOnCompleteListener(task -> {
+                    progressBar.setVisibility(View.GONE);
+                    if (task.isSuccessful()) {
+                        Toast.makeText(this, "Password reset email sent", Toast.LENGTH_SHORT).show();
+                    } else {
+                        String errorMessage = "Failed to send reset email";
+                        if (task.getException() != null) {
+                            errorMessage = task.getException().getMessage();
+                        }
+                        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
                     }
                 });
     }
