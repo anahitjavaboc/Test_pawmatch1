@@ -1,69 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".activities.PreferencesActivity">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
+        android:layout_height="wrap_content"
+        android:text="@string/preferences_title"
+        android:textAppearance="?attr/textAppearanceHeadline5"
+        android:gravity="center"
+        android:layout_marginBottom="24dp"/>
 
-        <LinearLayout
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/petTypeLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/pet_type"
+        android:layout_marginBottom="16dp"
+        app:errorEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/petTypeInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:inputType="text"/>
 
-            <!-- Pet Type -->
-            <TextView android:text="Select Pet Type" android:textStyle="bold"/>
-            <Spinner android:id="@+id/petTypeSpinner" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Breed -->
-            <TextView android:text="Enter Breed" android:textStyle="bold"/>
-            <EditText android:id="@+id/breedEditText" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Enter breed (optional)"/>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/petSizeLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/pet_size"
+        android:layout_marginBottom="16dp"
+        app:errorEnabled="true">
 
-            <!-- Age -->
-            <TextView android:text="Select Age Range" android:textStyle="bold"/>
-            <SeekBar android:id="@+id/ageSeekBar" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="20"/>
-            <TextView android:id="@+id/ageTextView" android:text="Age: 0 years"/>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/petSizeInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"/>
 
-            <!-- Size -->
-            <TextView android:text="Select Size" android:textStyle="bold"/>
-            <Spinner android:id="@+id/sizeSpinner" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Gender -->
-            <TextView android:text="Select Gender" android:textStyle="bold"/>
-            <RadioGroup android:id="@+id/genderGroup" android:layout_width="match_parent" android:layout_height="wrap_content">
-                <RadioButton android:id="@+id/maleRadio" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Male"/>
-                <RadioButton android:id="@+id/femaleRadio" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Female"/>
-            </RadioGroup>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/petAgeLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/pet_age"
+        android:layout_marginBottom="16dp"
+        app:errorEnabled="true">
 
-            <!-- Location -->
-            <TextView android:text="Enter Location" android:textStyle="bold"/>
-            <EditText android:id="@+id/locationEditText" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Enter city, country"/>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/petAgeInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"/>
 
-            <!-- Energy Level -->
-            <TextView android:text="Select Energy Level" android:textStyle="bold"/>
-            <SeekBar android:id="@+id/energySeekBar" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="10"/>
-            <TextView android:id="@+id/energyTextView" android:text="Energy Level: 0"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Sociability -->
-            <TextView android:text="Select Sociability" android:textStyle="bold"/>
-            <Spinner android:id="@+id/sociabilitySpinner" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/petGenderLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/pet_gender"
+        android:layout_marginBottom="16dp"
+        app:errorEnabled="true">
 
-            <!-- Training Level -->
-            <TextView android:text="Select Training Level" android:textStyle="bold"/>
-            <Spinner android:id="@+id/trainingSpinner" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/petGenderInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"/>
 
-            <!-- Special Needs -->
-            <CheckBox android:id="@+id/specialNeedsCheckbox" android:text="This pet has special needs"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Ready to Conceive -->
-            <TextView android:text="Is this pet ready to conceive?" android:textStyle="bold"/>
-            <Switch android:id="@+id/readyToConceiveSwitch" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/maxDistanceLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/max_distance"
+        android:layout_marginBottom="16dp"
+        app:errorEnabled="true">
 
-            <!-- Save Button -->
-            <Button android:id="@+id/savePreferencesButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Save Preferences"/>
-        </LinearLayout>
-    </ScrollView>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/maxDistanceInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/notificationsSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/enable_notifications"
+        android:layout_marginBottom="16dp"/>
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/emailUpdatesSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/enable_email_updates"
+        android:layout_marginBottom="24dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cancelButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:layout_marginEnd="8dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/saveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save"/>
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:layout_marginTop="16dp"/>
+
+</LinearLayout>

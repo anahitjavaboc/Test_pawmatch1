@@ -12,7 +12,13 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    repositories {
+        google()
+        mavenCentral()
+        // Add other repositories here if needed
+    }
 }
 
 rootProject.name = "PawMatch"
-include() ":app"
+include(":app")
