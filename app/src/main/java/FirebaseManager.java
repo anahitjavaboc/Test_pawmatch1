@@ -1,266 +1,284 @@
-import com.example.pawmatch.models.UserPreferences;
+package com.example.test_pawmatch.utils;
+
+import android.net.Uri;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import com.example.test_pawmatch.models.Pet;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.UUID;
 
 public class FirebaseManager {
+    private static final String TAG = "FirebaseManager";
     private static FirebaseManager instance;
-    private final FirebaseAuth auth;
     private final FirebaseFirestore db;
     private final FirebaseStorage storage;
+    private final FirebaseAuth auth;
 
     private FirebaseManager() {
-        auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
+        auth = FirebaseAuth.getInstance();
     }
 
-    public static FirebaseManager getInstance() {
+    public static synchronized FirebaseManager getInstance() {
         if (instance == null) {
             instance = new FirebaseManager();
         }
         return instance;
     }
 
-    // Pet Profile Operations
-    public void createPetProfile(Pet pet, OnCompleteListener<String> listener) {
-        db.collection("pets")
+    public interface FirebaseCallback {
+        void onSuccess();
+        void onError(String error);
+    }
+
+    public void addPet(Pet pet, FirebaseCallback callback) {
+        FirebaseUser user = auth.getCurrentUser();
+        if (user == null) {
+            callback.onError("User not authenticated");
+            return;
+        }
+
+        db.collection("users")
+                .document(user.getUid())
+                .collection("pets")
                 .add(pet)
                 .addOnSuccessListener(documentReference -> {
-                    pet.setId(documentReference.getId());
-                    listener.onSuccess(documentReference.getId());
+                    Log.d(TAG, "Pet added with ID: " + documentReference.getId());
+                    callback.onSuccess();
                 })
-                .addOnFailureListener(listener::onError);
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error adding pet", e);
+                    callback.onError("Failed to add pet: " + e.getMessage());
+                });
     }
 
-    public void updatePetProfile(Pet pet, OnCompleteListener<Void> listener) {
-        db.collection("pets")
-                .document(pet.getId())
-                .set(pet)
-                .addOnSuccessListener(aVoid -> listener.onSuccess(null))
-                .addOnFailureListener(listener::onError);
-    }
+    public void updatePet(String petId, Pet pet, FirebaseCallback callback) {
+        FirebaseUser user = auth.getCurrentUser();
+        if (user == null) {
+            callback.onError("User not authenticated");
+            return;
+        }
 
-    public void getPetProfile(String petId, OnCompleteListener<Pet> listener) {
-        db.collection("pets")
+        db.collection("users")
+                .document(user.getUid())
+                .collection("pets")
                 .document(petId)
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    Pet pet = documentSnapshot.toObject(Pet.class);
-                    if (pet != null) {
-                        pet.setId(documentSnapshot.getId());
-                    }
-                    listener.onSuccess(pet);
+                .set(pet)
+                .addOnSuccessListener(aVoid -> {
+                    Log.d(TAG, "Pet updated successfully");
+                    callback.onSuccess();
                 })
-                .addOnFailureListener(listener::onError);
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error updating pet", e);
+                    callback.onError("Failed to update pet: " + e.getMessage());
+                });
     }
 
-    public void uploadPetImage(String petId, Uri imageUri, OnCompleteListener<String> listener) {
-        StorageReference storageRef = storage.getReference()
-                .child("pet_images")
-                .child(petId)
-                .child("profile.jpg");
+    public void deletePet(String petId, FirebaseCallback callback) {
+        FirebaseUser user = auth.getCurrentUser();
+        if (user == null) {
+            callback.onError("User not authenticated");
+            return;
+        }
 
-        storageRef.putFile(imageUri)
-                .addOnSuccessListener(taskSnapshot -> storageRef.getDownloadUrl()
-                        .addOnSuccessListener(uri -> listener.onSuccess(uri.toString()))
-                        .addOnFailureListener(listener::onError))
-                .addOnFailureListener(listener::onError);
-    }
-
-    // User Preferences Operations
-    public void saveUserPreferences(UserPreferences preferences, OnCompleteListener<String> listener) {
-        db.collection("user_preferences")
-                .add(preferences)
-                .addOnSuccessListener(documentReference -> {
-                    preferences.setId(documentReference.getId());
-                    listener.onSuccess(documentReference.getId());
+        db.collection("users")
+                .document(user.getUid())
+                .collection("pets")
+                .document(petId)
+                .delete()
+                .addOnSuccessListener(aVoid -> {
+                    Log.d(TAG, "Pet deleted successfully");
+                    callback.onSuccess();
                 })
-                .addOnFailureListener(listener::onError);
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error deleting pet", e);
+                    callback.onError("Failed to delete pet: " + e.getMessage());
+                });
     }
 
-    public void updateUserPreferences(UserPreferences preferences, OnCompleteListener<Void> listener) {
-        db.collection("user_preferences")
-                .document(preferences.getId())
-                .set(preferences)
-                .addOnSuccessListener(aVoid -> listener.onSuccess(null))
-                .addOnFailureListener(listener::onError);
-    }
+    public void getPets(FirebaseCallback callback) {
+        FirebaseUser user = auth.getCurrentUser();
+        if (user == null) {
+            callback.onError("User not authenticated");
+            return;
+        }
 
-    public void getUserPreferences(String userId, OnCompleteListener<UserPreferences> listener) {
-        db.collection("user_preferences")
-                .whereEqualTo("userId", userId)
+        db.collection("users")
+                .document(user.getUid())
+                .collection("pets")
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
-                    if (!queryDocumentSnapshots.isEmpty()) {
-                        UserPreferences preferences = queryDocumentSnapshots.getDocuments().get(0).toObject(UserPreferences.class);
-                        if (preferences != null) {
-                            preferences.setId(queryDocumentSnapshots.getDocuments().get(0).getId());
+                    List<Pet> pets = new ArrayList<>();
+                    for (DocumentSnapshot document : queryDocumentSnapshots) {
+                        Pet pet = document.toObject(Pet.class);
+                        if (pet != null) {
+                            pet.setId(document.getId());
+                            pets.add(pet);
                         }
-                        listener.onSuccess(preferences);
-                    } else {
-                        listener.onSuccess(null);
                     }
+                    callback.onSuccess();
                 })
-                .addOnFailureListener(listener::onError);
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error getting pets", e);
+                    callback.onError("Failed to get pets: " + e.getMessage());
+                });
     }
 
-    // Matching Operations
-    public void createMatch(Pet pet1, Pet pet2, OnCompleteListener<String> listener) {
-        Match match = new Match(pet1.getId(), pet2.getId(), pet1.getOwnerId(), pet2.getOwnerId());
-        db.collection("matches")
-                .add(match)
-                .addOnSuccessListener(documentReference -> {
-                    match.setId(documentReference.getId());
-                    listener.onSuccess(documentReference.getId());
+    public void uploadPetImage(Uri imageUri, String petId, FirebaseCallback callback) {
+        FirebaseUser user = auth.getCurrentUser();
+        if (user == null) {
+            callback.onError("User not authenticated");
+            return;
+        }
+
+        String fileName = "pet_" + petId + "_" + UUID.randomUUID().toString() + ".jpg";
+        StorageReference storageRef = storage.getReference()
+                .child("users")
+                .child(user.getUid())
+                .child("pets")
+                .child(petId)
+                .child(fileName);
+
+        UploadTask uploadTask = storageRef.putFile(imageUri);
+        uploadTask.addOnProgressListener(taskSnapshot -> {
+                    double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                    Log.d(TAG, "Upload progress: " + progress + "%");
                 })
-                .addOnFailureListener(listener::onError);
-    }
-
-    public void getMatches(String petId, OnCompleteListener<List<Match>> listener) {
-        db.collection("matches")
-                .whereEqualTo("isActive", true)
-                .whereEqualTo("pet1Id", petId)
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    List<Match> matches = new ArrayList<>();
-                    for (var doc : queryDocumentSnapshots) {
-                        Match match = doc.toObject(Match.class);
-                        match.setId(doc.getId());
-                        matches.add(match);
-                    }
-                    listener.onSuccess(matches);
+                .addOnSuccessListener(taskSnapshot -> {
+                    storageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                        Log.d(TAG, "Image uploaded successfully");
+                        callback.onSuccess();
+                    });
                 })
-                .addOnFailureListener(listener::onError);
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error uploading image", e);
+                    callback.onError("Failed to upload image: " + e.getMessage());
+                });
     }
 
-    // Messaging Operations
-    public void sendMessage(Message message, OnCompleteListener<String> listener) {
-        db.collection("messages")
-                .add(message)
-                .addOnSuccessListener(documentReference -> {
-                    message.setId(documentReference.getId());
-                    // Update match's last message
-                    updateMatchLastMessage(message.getMatchId(), message.getContent(), message.getTimestamp());
-                    listener.onSuccess(documentReference.getId());
-                })
-                .addOnFailureListener(listener::onError);
-    }
-
-    private void updateMatchLastMessage(String matchId, String lastMessage, java.util.Date lastMessageDate) {
-        db.collection("matches")
-                .document(matchId)
-                .update("lastMessage", lastMessage, "lastMessageDate", lastMessageDate)
-                .addOnFailureListener(e -> e.printStackTrace());
-    }
-
-    public void getMessages(String matchId, OnCompleteListener<List<Message>> listener) {
-        db.collection("messages")
-                .whereEqualTo("matchId", matchId)
-                .orderBy("timestamp", com.google.firebase.firestore.Query.Direction.ASCENDING)
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    List<Message> messages = new ArrayList<>();
-                    for (var doc : queryDocumentSnapshots) {
-                        Message message = doc.toObject(Message.class);
-                        message.setId(doc.getId());
-                        messages.add(message);
-                    }
-                    listener.onSuccess(messages);
-                })
-                .addOnFailureListener(listener::onError);
-    }
-
-    // Vaccination Operations
     public void addVaccination(String petId, Pet.Vaccination vaccination, FirebaseCallback callback) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference petRef = db.collection("pets").document(petId);
+        FirebaseUser user = auth.getCurrentUser();
+        if (user == null) {
+            callback.onError("User not authenticated");
+            return;
+        }
+
+        DocumentReference petRef = db.collection("users")
+                .document(user.getUid())
+                .collection("pets")
+                .document(petId);
 
         petRef.get().addOnSuccessListener(documentSnapshot -> {
             Pet pet = documentSnapshot.toObject(Pet.class);
             if (pet != null) {
-                List<Pet.Vaccination> vaccinations = pet.getVaccinations();
-                if (vaccinations == null) {
-                    vaccinations = new ArrayList<>();
-                }
-                vaccinations.add(vaccination);
-                pet.setVaccinations(vaccinations);
-
+                pet.getVaccinations().add(vaccination);
                 petRef.set(pet)
-                        .addOnSuccessListener(aVoid -> callback.onSuccess())
-                        .addOnFailureListener(e -> callback.onError(e.getMessage()));
+                        .addOnSuccessListener(aVoid -> {
+                            Log.d(TAG, "Vaccination added successfully");
+                            callback.onSuccess();
+                        })
+                        .addOnFailureListener(e -> {
+                            Log.e(TAG, "Error adding vaccination", e);
+                            callback.onError("Failed to add vaccination: " + e.getMessage());
+                        });
             } else {
                 callback.onError("Pet not found");
             }
-        }).addOnFailureListener(e -> callback.onError(e.getMessage()));
+        }).addOnFailureListener(e -> {
+            Log.e(TAG, "Error getting pet", e);
+            callback.onError("Failed to get pet: " + e.getMessage());
+        });
     }
 
     public void updateVaccination(String petId, Pet.Vaccination oldVaccination, Pet.Vaccination newVaccination, FirebaseCallback callback) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference petRef = db.collection("pets").document(petId);
+        FirebaseUser user = auth.getCurrentUser();
+        if (user == null) {
+            callback.onError("User not authenticated");
+            return;
+        }
+
+        DocumentReference petRef = db.collection("users")
+                .document(user.getUid())
+                .collection("pets")
+                .document(petId);
 
         petRef.get().addOnSuccessListener(documentSnapshot -> {
             Pet pet = documentSnapshot.toObject(Pet.class);
             if (pet != null) {
                 List<Pet.Vaccination> vaccinations = pet.getVaccinations();
-                if (vaccinations != null) {
-                    int index = vaccinations.indexOf(oldVaccination);
-                    if (index != -1) {
-                        vaccinations.set(index, newVaccination);
-                        pet.setVaccinations(vaccinations);
-
-                        petRef.set(pet)
-                                .addOnSuccessListener(aVoid -> callback.onSuccess())
-                                .addOnFailureListener(e -> callback.onError(e.getMessage()));
-                    } else {
-                        callback.onError("Vaccination not found");
-                    }
+                int index = vaccinations.indexOf(oldVaccination);
+                if (index != -1) {
+                    vaccinations.set(index, newVaccination);
+                    petRef.set(pet)
+                            .addOnSuccessListener(aVoid -> {
+                                Log.d(TAG, "Vaccination updated successfully");
+                                callback.onSuccess();
+                            })
+                            .addOnFailureListener(e -> {
+                                Log.e(TAG, "Error updating vaccination", e);
+                                callback.onError("Failed to update vaccination: " + e.getMessage());
+                            });
                 } else {
-                    callback.onError("No vaccinations found");
+                    callback.onError("Vaccination not found");
                 }
             } else {
                 callback.onError("Pet not found");
             }
-        }).addOnFailureListener(e -> callback.onError(e.getMessage()));
+        }).addOnFailureListener(e -> {
+            Log.e(TAG, "Error getting pet", e);
+            callback.onError("Failed to get pet: " + e.getMessage());
+        });
     }
 
     public void deleteVaccination(String petId, Pet.Vaccination vaccination, FirebaseCallback callback) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference petRef = db.collection("pets").document(petId);
+        FirebaseUser user = auth.getCurrentUser();
+        if (user == null) {
+            callback.onError("User not authenticated");
+            return;
+        }
+
+        DocumentReference petRef = db.collection("users")
+                .document(user.getUid())
+                .collection("pets")
+                .document(petId);
 
         petRef.get().addOnSuccessListener(documentSnapshot -> {
             Pet pet = documentSnapshot.toObject(Pet.class);
             if (pet != null) {
-                List<Pet.Vaccination> vaccinations = pet.getVaccinations();
-                if (vaccinations != null) {
-                    vaccinations.remove(vaccination);
-                    pet.setVaccinations(vaccinations);
-
-                    petRef.set(pet)
-                            .addOnSuccessListener(aVoid -> callback.onSuccess())
-                            .addOnFailureListener(e -> callback.onError(e.getMessage()));
-                } else {
-                    callback.onError("No vaccinations found");
-                }
+                pet.getVaccinations().remove(vaccination);
+                petRef.set(pet)
+                        .addOnSuccessListener(aVoid -> {
+                            Log.d(TAG, "Vaccination deleted successfully");
+                            callback.onSuccess();
+                        })
+                        .addOnFailureListener(e -> {
+                            Log.e(TAG, "Error deleting vaccination", e);
+                            callback.onError("Failed to delete vaccination: " + e.getMessage());
+                        });
             } else {
                 callback.onError("Pet not found");
             }
-        }).addOnFailureListener(e -> callback.onError(e.getMessage()));
-    }
-
-    // Callback interface
-    public interface OnCompleteListener<T> {
-        void onSuccess(T result);
-        void onError(Exception e);
-    }
-
-    public interface FirebaseCallback {
-        void onSuccess();
-        void onError(String message);
+        }).addOnFailureListener(e -> {
+            Log.e(TAG, "Error getting pet", e);
+            callback.onError("Failed to get pet: " + e.getMessage());
+        });
     }
 } 

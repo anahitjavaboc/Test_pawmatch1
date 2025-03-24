@@ -1,45 +1,45 @@
-package com.example.pawmatch.activities;
+package com.example.test_pawmatch.activities;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.RatingBar;
-import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.pawmatch.R;
-import com.example.pawmatch.models.Pet;
-import com.example.pawmatch.utils.FirebaseManager;
-import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipGroup;
+import com.example.test_pawmatch.R;
+import com.example.test_pawmatch.models.Pet;
+import com.example.test_pawmatch.utils.FirebaseManager;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.storage.FirebaseStorage;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.storage.StorageReference;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class PetProfileCreationActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri selectedImageUri;
-    private ImageView profileImageView;
-    private TextInputEditText nameEditText, ageEditText, locationEditText, descriptionEditText;
-    private Spinner petTypeSpinner, breedSpinner, ageRangeSpinner, sizeSpinner, genderSpinner;
-    private RatingBar energyLevelRatingBar, sociabilityRatingBar, trainingLevelRatingBar;
-    private ChipGroup specialNeedsChipGroup;
-    private Button uploadImageButton, saveButton;
-    private ProgressBar progressBar;
+    private ImageView petImageView;
+    private TextInputLayout nameLayout, typeLayout, breedLayout, ageLayout, sizeLayout, genderLayout;
+    private TextInputEditText nameInput, typeInput, breedInput, ageInput, sizeInput, genderInput;
+    private MaterialButton uploadImageButton, saveButton, cancelButton;
+    private View progressBar;
     private FirebaseManager firebaseManager;
+
+    private final ActivityResultLauncher<Intent> imagePickerLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    selectedImageUri = result.getData().getData();
+                    if (selectedImageUri != null) {
+                        petImageView.setImageURI(selectedImageUri);
+                    }
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,93 +48,40 @@ public class PetProfileCreationActivity extends AppCompatActivity {
 
         firebaseManager = FirebaseManager.getInstance();
         initializeViews();
-        setupSpinners();
-        setupSpecialNeedsChips();
         setupClickListeners();
     }
 
     private void initializeViews() {
-        profileImageView = findViewById(R.id.profileImageView);
-        nameEditText = findViewById(R.id.nameEditText);
-        ageEditText = findViewById(R.id.ageEditText);
-        locationEditText = findViewById(R.id.locationEditText);
-        descriptionEditText = findViewById(R.id.descriptionEditText);
-        petTypeSpinner = findViewById(R.id.petTypeSpinner);
-        breedSpinner = findViewById(R.id.breedSpinner);
-        ageRangeSpinner = findViewById(R.id.ageRangeSpinner);
-        sizeSpinner = findViewById(R.id.sizeSpinner);
-        genderSpinner = findViewById(R.id.genderSpinner);
-        energyLevelRatingBar = findViewById(R.id.energyLevelRatingBar);
-        sociabilityRatingBar = findViewById(R.id.sociabilityRatingBar);
-        trainingLevelRatingBar = findViewById(R.id.trainingLevelRatingBar);
-        specialNeedsChipGroup = findViewById(R.id.specialNeedsChipGroup);
+        petImageView = findViewById(R.id.petImageView);
+        nameLayout = findViewById(R.id.nameLayout);
+        typeLayout = findViewById(R.id.typeLayout);
+        breedLayout = findViewById(R.id.breedLayout);
+        ageLayout = findViewById(R.id.ageLayout);
+        sizeLayout = findViewById(R.id.sizeLayout);
+        genderLayout = findViewById(R.id.genderLayout);
+
+        nameInput = findViewById(R.id.nameInput);
+        typeInput = findViewById(R.id.typeInput);
+        breedInput = findViewById(R.id.breedInput);
+        ageInput = findViewById(R.id.ageInput);
+        sizeInput = findViewById(R.id.sizeInput);
+        genderInput = findViewById(R.id.genderInput);
+
         uploadImageButton = findViewById(R.id.uploadImageButton);
         saveButton = findViewById(R.id.saveButton);
+        cancelButton = findViewById(R.id.cancelButton);
         progressBar = findViewById(R.id.progressBar);
     }
 
-    private void setupSpinners() {
-        // Pet Type Spinner
-        List<String> petTypes = Arrays.asList("Dog", "Cat", "Bird", "Fish", "Other");
-        ArrayAdapter<String> petTypeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, petTypes);
-        petTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        petTypeSpinner.setAdapter(petTypeAdapter);
-
-        // Age Range Spinner
-        List<String> ageRanges = Arrays.asList("Puppy/Kitten", "Young", "Adult", "Senior");
-        ArrayAdapter<String> ageRangeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ageRanges);
-        ageRangeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        ageRangeSpinner.setAdapter(ageRangeAdapter);
-
-        // Size Spinner
-        List<String> sizes = Arrays.asList("Small", "Medium", "Large", "Extra Large");
-        ArrayAdapter<String> sizeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sizes);
-        sizeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sizeSpinner.setAdapter(sizeAdapter);
-
-        // Gender Spinner
-        List<String> genders = Arrays.asList("Male", "Female", "Neutered", "Spayed");
-        ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, genders);
-        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        genderSpinner.setAdapter(genderAdapter);
-    }
-
-    private void setupSpecialNeedsChips() {
-        List<String> specialNeeds = Arrays.asList(
-                "Requires Medication",
-                "Special Diet",
-                "Physical Limitations",
-                "Behavioral Training",
-                "Regular Vet Visits",
-                "Allergies"
-        );
-
-        for (String need : specialNeeds) {
-            Chip chip = new Chip(this);
-            chip.setText(need);
-            chip.setCheckable(true);
-            specialNeedsChipGroup.addView(chip);
-        }
-    }
-
     private void setupClickListeners() {
-        uploadImageButton.setOnClickListener(v -> {
-            Intent intent = new Intent();
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-        });
-
+        uploadImageButton.setOnClickListener(v -> openImagePicker());
         saveButton.setOnClickListener(v -> savePetProfile());
+        cancelButton.setOnClickListener(v -> finish());
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
-            selectedImageUri = data.getData();
-            profileImageView.setImageURI(selectedImageUri);
-        }
+    private void openImagePicker() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        imagePickerLauncher.launch(intent);
     }
 
     private void savePetProfile() {
@@ -142,96 +89,107 @@ public class PetProfileCreationActivity extends AppCompatActivity {
             return;
         }
 
-        progressBar.setVisibility(View.VISIBLE);
-        saveButton.setEnabled(false);
+        showProgress(true);
 
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        Pet pet = createPetObject(userId);
+        Pet pet = new Pet();
+        pet.setName(nameInput.getText().toString().trim());
+        pet.setType(typeInput.getText().toString().trim());
+        pet.setBreed(breedInput.getText().toString().trim());
+        pet.setAgeRange(ageInput.getText().toString().trim());
+        pet.setSize(sizeInput.getText().toString().trim());
+        pet.setGender(genderInput.getText().toString().trim());
 
         if (selectedImageUri != null) {
             // Upload image first
-            String imagePath = "pet_images/" + userId + "/" + System.currentTimeMillis() + ".jpg";
-            StorageReference imageRef = FirebaseStorage.getInstance().getReference().child(imagePath);
+            firebaseManager.uploadPetImage(selectedImageUri, pet.getId(), new FirebaseManager.FirebaseCallback() {
+                @Override
+                public void onSuccess() {
+                    // After image upload, save pet profile
+                    savePetToFirebase(pet);
+                }
 
-            imageRef.putFile(selectedImageUri)
-                    .addOnSuccessListener(taskSnapshot -> {
-                        imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                            pet.setImageUrl(uri.toString());
-                            savePetToFirebase(pet);
-                        });
-                    })
-                    .addOnFailureListener(e -> {
-                        progressBar.setVisibility(View.GONE);
-                        saveButton.setEnabled(true);
-                        Toast.makeText(this, "Failed to upload image: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    });
+                @Override
+                public void onError(String error) {
+                    showProgress(false);
+                    Toast.makeText(PetProfileCreationActivity.this, error, Toast.LENGTH_SHORT).show();
+                }
+            });
         } else {
+            // Save pet profile without image
             savePetToFirebase(pet);
         }
     }
 
-    private Pet createPetObject(String userId) {
-        List<String> selectedSpecialNeeds = new ArrayList<>();
-        for (int i = 0; i < specialNeedsChipGroup.getChildCount(); i++) {
-            Chip chip = (Chip) specialNeedsChipGroup.getChildAt(i);
-            if (chip.isChecked()) {
-                selectedSpecialNeeds.add(chip.getText().toString());
-            }
-        }
-
-        return new Pet(
-                userId,
-                nameEditText.getText().toString(),
-                petTypeSpinner.getSelectedItem().toString(),
-                breedSpinner.getSelectedItem().toString(),
-                Double.parseDouble(ageEditText.getText().toString()),
-                ageRangeSpinner.getSelectedItem().toString(),
-                sizeSpinner.getSelectedItem().toString(),
-                genderSpinner.getSelectedItem().toString(),
-                locationEditText.getText().toString(),
-                (int) energyLevelRatingBar.getRating(),
-                (int) sociabilityRatingBar.getRating(),
-                (int) trainingLevelRatingBar.getRating(),
-                selectedSpecialNeeds,
-                descriptionEditText.getText().toString()
-        );
-    }
-
     private void savePetToFirebase(Pet pet) {
-        firebaseManager.createPetProfile(pet, new FirebaseManager.FirebaseCallback() {
+        firebaseManager.addPet(pet, new FirebaseManager.FirebaseCallback() {
             @Override
             public void onSuccess() {
-                progressBar.setVisibility(View.GONE);
-                Toast.makeText(PetProfileCreationActivity.this, "Pet profile created successfully!", Toast.LENGTH_SHORT).show();
+                showProgress(false);
+                Toast.makeText(PetProfileCreationActivity.this,
+                        R.string.pet_profile_created, Toast.LENGTH_SHORT).show();
                 finish();
             }
 
             @Override
             public void onError(String error) {
-                progressBar.setVisibility(View.GONE);
-                saveButton.setEnabled(true);
-                Toast.makeText(PetProfileCreationActivity.this, "Error: " + error, Toast.LENGTH_SHORT).show();
+                showProgress(false);
+                Toast.makeText(PetProfileCreationActivity.this, error, Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private boolean validateInputs() {
-        if (nameEditText.getText().toString().trim().isEmpty()) {
-            nameEditText.setError("Please enter pet's name");
-            return false;
+        boolean isValid = true;
+
+        if (nameInput.getText().toString().trim().isEmpty()) {
+            nameLayout.setError(getString(R.string.error_field_required));
+            isValid = false;
+        } else {
+            nameLayout.setError(null);
         }
-        if (ageEditText.getText().toString().trim().isEmpty()) {
-            ageEditText.setError("Please enter pet's age");
-            return false;
+
+        if (typeInput.getText().toString().trim().isEmpty()) {
+            typeLayout.setError(getString(R.string.error_field_required));
+            isValid = false;
+        } else {
+            typeLayout.setError(null);
         }
-        if (locationEditText.getText().toString().trim().isEmpty()) {
-            locationEditText.setError("Please enter location");
-            return false;
+
+        if (breedInput.getText().toString().trim().isEmpty()) {
+            breedLayout.setError(getString(R.string.error_field_required));
+            isValid = false;
+        } else {
+            breedLayout.setError(null);
         }
-        if (descriptionEditText.getText().toString().trim().isEmpty()) {
-            descriptionEditText.setError("Please enter a description");
-            return false;
+
+        if (ageInput.getText().toString().trim().isEmpty()) {
+            ageLayout.setError(getString(R.string.error_field_required));
+            isValid = false;
+        } else {
+            ageLayout.setError(null);
         }
-        return true;
+
+        if (sizeInput.getText().toString().trim().isEmpty()) {
+            sizeLayout.setError(getString(R.string.error_field_required));
+            isValid = false;
+        } else {
+            sizeLayout.setError(null);
+        }
+
+        if (genderInput.getText().toString().trim().isEmpty()) {
+            genderLayout.setError(getString(R.string.error_field_required));
+            isValid = false;
+        } else {
+            genderLayout.setError(null);
+        }
+
+        return isValid;
+    }
+
+    private void showProgress(boolean show) {
+        progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        uploadImageButton.setEnabled(!show);
+        saveButton.setEnabled(!show);
+        cancelButton.setEnabled(!show);
     }
 }

@@ -1,245 +1,236 @@
-package com.example.pawmatch.models;
+package com.example.test_pawmatch.models;
 
-import com.google.firebase.firestore.Exclude;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
 
 public class Pet {
     private String id;
-    private String ownerId;
     private String name;
-    private String petType; // Dog, Cat, Rabbit, Bird, etc.
+    private String type; // dog, cat, etc.
     private String breed;
-    private String ageRange; // Puppy/Kitten, Young, Adult, Senior
-    private int age;
-    private String size; // Small, Medium, Large
-    private String gender; // Male, Female
-    private int energyLevel; // 1-5
-    private int sociability; // 1-5
-    private int trainingLevel; // 1-5
-    private List<String> specialNeeds;
-    private String location;
+    private String ageRange;
+    private String size;
+    private String gender;
+    private int energyLevel;
+    private int sociability;
+    private int trainingLevel;
+    private boolean hasSpecialNeeds;
+    private String specialNeedsDescription;
     private String imageUrl;
-    private String description;
-    private List<String> interests;
-    private boolean isActive;
-
-    // Health Profile
     private List<Vaccination> vaccinations;
     private List<MedicalCondition> medicalConditions;
     private List<Medication> medications;
     private List<VetAppointment> vetAppointments;
 
-    // Required empty constructor for Firestore
-    public Pet() {}
-
-    public Pet(String ownerId, String name, String petType, String breed, String ageRange, int age,
-               String size, String gender, int energyLevel, int sociability, int trainingLevel,
-               List<String> specialNeeds, String location, String imageUrl, String description,
-               List<String> interests) {
-        this.ownerId = ownerId;
-        this.name = name;
-        this.petType = petType;
-        this.breed = breed;
-        this.ageRange = ageRange;
-        this.age = age;
-        this.size = size;
-        this.gender = gender;
-        this.energyLevel = energyLevel;
-        this.sociability = sociability;
-        this.trainingLevel = trainingLevel;
-        this.specialNeeds = specialNeeds;
-        this.location = location;
-        this.imageUrl = imageUrl;
-        this.description = description;
-        this.interests = interests;
-        this.isActive = true;
-        this.vaccinations = new ArrayList<>();
-        this.medicalConditions = new ArrayList<>();
-        this.medications = new ArrayList<>();
-        this.vetAppointments = new ArrayList<>();
+    public Pet() {
+        vaccinations = new ArrayList<>();
+        medicalConditions = new ArrayList<>();
+        medications = new ArrayList<>();
+        vetAppointments = new ArrayList<>();
     }
 
-    // Existing getters and setters...
+    // Getters and Setters
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
-    public String getPetType() {
-        return petType;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public void setPetType(String petType) {
-        this.petType = petType;
-    }
+    public String getType() { return type; }
+    public void setType(String type) { this.type = type; }
 
-    public String getAgeRange() {
-        return ageRange;
-    }
+    public String getBreed() { return breed; }
+    public void setBreed(String breed) { this.breed = breed; }
 
-    public void setAgeRange(String ageRange) {
-        this.ageRange = ageRange;
-    }
+    public String getAgeRange() { return ageRange; }
+    public void setAgeRange(String ageRange) { this.ageRange = ageRange; }
 
-    public String getGender() {
-        return gender;
-    }
+    public String getSize() { return size; }
+    public void setSize(String size) { this.size = size; }
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
+    public String getGender() { return gender; }
+    public void setGender(String gender) { this.gender = gender; }
 
-    public List<Vaccination> getVaccinations() {
-        return vaccinations;
-    }
+    public int getEnergyLevel() { return energyLevel; }
+    public void setEnergyLevel(int energyLevel) { this.energyLevel = energyLevel; }
 
-    public void setVaccinations(List<Vaccination> vaccinations) {
-        this.vaccinations = vaccinations;
-    }
+    public int getSociability() { return sociability; }
+    public void setSociability(int sociability) { this.sociability = sociability; }
 
-    public List<MedicalCondition> getMedicalConditions() {
-        return medicalConditions;
-    }
+    public int getTrainingLevel() { return trainingLevel; }
+    public void setTrainingLevel(int trainingLevel) { this.trainingLevel = trainingLevel; }
 
-    public void setMedicalConditions(List<MedicalCondition> medicalConditions) {
-        this.medicalConditions = medicalConditions;
-    }
+    public boolean isHasSpecialNeeds() { return hasSpecialNeeds; }
+    public void setHasSpecialNeeds(boolean hasSpecialNeeds) { this.hasSpecialNeeds = hasSpecialNeeds; }
 
-    public List<Medication> getMedications() {
-        return medications;
-    }
+    public String getSpecialNeedsDescription() { return specialNeedsDescription; }
+    public void setSpecialNeedsDescription(String specialNeedsDescription) { this.specialNeedsDescription = specialNeedsDescription; }
 
-    public void setMedications(List<Medication> medications) {
-        this.medications = medications;
-    }
+    public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 
-    public List<VetAppointment> getVetAppointments() {
-        return vetAppointments;
-    }
+    public List<Vaccination> getVaccinations() { return vaccinations; }
+    public void setVaccinations(List<Vaccination> vaccinations) { this.vaccinations = vaccinations; }
 
-    public void setVetAppointments(List<VetAppointment> vetAppointments) {
-        this.vetAppointments = vetAppointments;
-    }
+    public List<MedicalCondition> getMedicalConditions() { return medicalConditions; }
+    public void setMedicalConditions(List<MedicalCondition> medicalConditions) { this.medicalConditions = medicalConditions; }
 
-    // Inner classes for health profile
+    public List<Medication> getMedications() { return medications; }
+    public void setMedications(List<Medication> medications) { this.medications = medications; }
+
+    public List<VetAppointment> getVetAppointments() { return vetAppointments; }
+    public void setVetAppointments(List<VetAppointment> vetAppointments) { this.vetAppointments = vetAppointments; }
+
+    // Inner classes for different types of records
     public static class Vaccination {
         private String name;
-        private Date dateGiven;
-        private Date nextDueDate;
+        private String date;
+        private String nextDueDate;
         private String notes;
 
         public Vaccination() {}
 
-        public Vaccination(String name, Date dateGiven, Date nextDueDate, String notes) {
-            this.name = name;
-            this.dateGiven = dateGiven;
-            this.nextDueDate = nextDueDate;
-            this.notes = notes;
-        }
-
-        // Getters and setters
         public String getName() { return name; }
         public void setName(String name) { this.name = name; }
-        public Date getDateGiven() { return dateGiven; }
-        public void setDateGiven(Date dateGiven) { this.dateGiven = dateGiven; }
-        public Date getNextDueDate() { return nextDueDate; }
-        public void setNextDueDate(Date nextDueDate) { this.nextDueDate = nextDueDate; }
+
+        public String getDate() { return date; }
+        public void setDate(String date) { this.date = date; }
+
+        public String getNextDueDate() { return nextDueDate; }
+        public void setNextDueDate(String nextDueDate) { this.nextDueDate = nextDueDate; }
+
         public String getNotes() { return notes; }
         public void setNotes(String notes) { this.notes = notes; }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Vaccination that = (Vaccination) o;
+            return name.equals(that.name) && date.equals(that.date);
+        }
+
+        @Override
+        public int hashCode() {
+            return name.hashCode() + date.hashCode();
+        }
     }
 
     public static class MedicalCondition {
         private String name;
-        private String description;
-        private Date diagnosedDate;
-        private boolean isActive;
-        private String treatment;
+        private String diagnosisDate;
+        private String status;
+        private String notes;
 
         public MedicalCondition() {}
 
-        public MedicalCondition(String name, String description, Date diagnosedDate, boolean isActive, String treatment) {
-            this.name = name;
-            this.description = description;
-            this.diagnosedDate = diagnosedDate;
-            this.isActive = isActive;
-            this.treatment = treatment;
-        }
-
-        // Getters and setters
         public String getName() { return name; }
         public void setName(String name) { this.name = name; }
-        public String getDescription() { return description; }
-        public void setDescription(String description) { this.description = description; }
-        public Date getDiagnosedDate() { return diagnosedDate; }
-        public void setDiagnosedDate(Date diagnosedDate) { this.diagnosedDate = diagnosedDate; }
-        public boolean isActive() { return isActive; }
-        public void setActive(boolean active) { isActive = active; }
-        public String getTreatment() { return treatment; }
-        public void setTreatment(String treatment) { this.treatment = treatment; }
+
+        public String getDiagnosisDate() { return diagnosisDate; }
+        public void setDiagnosisDate(String diagnosisDate) { this.diagnosisDate = diagnosisDate; }
+
+        public String getStatus() { return status; }
+        public void setStatus(String status) { this.status = status; }
+
+        public String getNotes() { return notes; }
+        public void setNotes(String notes) { this.notes = notes; }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            MedicalCondition that = (MedicalCondition) o;
+            return name.equals(that.name) && diagnosisDate.equals(that.diagnosisDate);
+        }
+
+        @Override
+        public int hashCode() {
+            return name.hashCode() + diagnosisDate.hashCode();
+        }
     }
 
     public static class Medication {
         private String name;
         private String dosage;
         private String frequency;
-        private Date startDate;
-        private Date endDate;
+        private String startDate;
+        private String endDate;
         private String notes;
 
         public Medication() {}
 
-        public Medication(String name, String dosage, String frequency, Date startDate, Date endDate, String notes) {
-            this.name = name;
-            this.dosage = dosage;
-            this.frequency = frequency;
-            this.startDate = startDate;
-            this.endDate = endDate;
-            this.notes = notes;
-        }
-
-        // Getters and setters
         public String getName() { return name; }
         public void setName(String name) { this.name = name; }
+
         public String getDosage() { return dosage; }
         public void setDosage(String dosage) { this.dosage = dosage; }
+
         public String getFrequency() { return frequency; }
         public void setFrequency(String frequency) { this.frequency = frequency; }
-        public Date getStartDate() { return startDate; }
-        public void setStartDate(Date startDate) { this.startDate = startDate; }
-        public Date getEndDate() { return endDate; }
-        public void setEndDate(Date endDate) { this.endDate = endDate; }
+
+        public String getStartDate() { return startDate; }
+        public void setStartDate(String startDate) { this.startDate = startDate; }
+
+        public String getEndDate() { return endDate; }
+        public void setEndDate(String endDate) { this.endDate = endDate; }
+
         public String getNotes() { return notes; }
         public void setNotes(String notes) { this.notes = notes; }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Medication that = (Medication) o;
+            return name.equals(that.name) && startDate.equals(that.startDate);
+        }
+
+        @Override
+        public int hashCode() {
+            return name.hashCode() + startDate.hashCode();
+        }
     }
 
     public static class VetAppointment {
-        private Date appointmentDate;
+        private String date;
+        private String time;
         private String vetName;
         private String clinicName;
         private String purpose;
         private String notes;
-        private boolean isCompleted;
 
         public VetAppointment() {}
 
-        public VetAppointment(Date appointmentDate, String vetName, String clinicName, String purpose, String notes) {
-            this.appointmentDate = appointmentDate;
-            this.vetName = vetName;
-            this.clinicName = clinicName;
-            this.purpose = purpose;
-            this.notes = notes;
-            this.isCompleted = false;
-        }
+        public String getDate() { return date; }
+        public void setDate(String date) { this.date = date; }
 
-        // Getters and setters
-        public Date getAppointmentDate() { return appointmentDate; }
-        public void setAppointmentDate(Date appointmentDate) { this.appointmentDate = appointmentDate; }
+        public String getTime() { return time; }
+        public void setTime(String time) { this.time = time; }
+
         public String getVetName() { return vetName; }
         public void setVetName(String vetName) { this.vetName = vetName; }
+
         public String getClinicName() { return clinicName; }
         public void setClinicName(String clinicName) { this.clinicName = clinicName; }
+
         public String getPurpose() { return purpose; }
         public void setPurpose(String purpose) { this.purpose = purpose; }
+
         public String getNotes() { return notes; }
         public void setNotes(String notes) { this.notes = notes; }
-        public boolean isCompleted() { return isCompleted; }
-        public void setCompleted(boolean completed) { isCompleted = completed; }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            VetAppointment that = (VetAppointment) o;
+            return date.equals(that.date) && time.equals(that.time);
+        }
+
+        @Override
+        public int hashCode() {
+            return date.hashCode() + time.hashCode();
+        }
     }
 }

@@ -1,4 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Test_pawmatch</string>
-    <string name="welcome_to_pawmatch">Welcome to PawMatch</string>
+    <string name="app_name">PawMatch</string>
+    <string name="welcome_message">Welcome to PawMatch</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="create_account">Create Account</string>
+    <string name="already_have_account">Already have an account? Sign In</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="back_to_sign_in">Back to Sign In</string>
+
+    <!-- Error Messages -->
+    <string name="error_field_required">This field is required</string>
+    <string name="error_invalid_email">Please enter a valid email address</string>
+    <string name="error_email_not_found">No account found with this email</string>
+    <string name="error_invalid_password">Invalid password</string>
+    <string name="error_email_in_use">This email is already registered</string>
+    <string name="error_weak_password">Password is too weak</string>
+    <string name="error_password_too_short">Password must be at least 6 characters</string>
+    <string name="error_passwords_dont_match">Passwords do not match</string>
+    <string name="error_sending_verification_email">Failed to send verification email</string>
+
+    <!-- Success Messages -->
+    <string name="verification_email_sent">Verification email sent. Please check your inbox.</string>
+    <string name="password_reset_email_sent">Password reset email sent. Please check your inbox.</string>
 </resources>

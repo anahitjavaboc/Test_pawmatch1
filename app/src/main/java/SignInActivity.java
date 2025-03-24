@@ -3,42 +3,63 @@ package com.example.test_pawmatch.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.test_pawmatch.MainActivity;
 import com.example.test_pawmatch.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class SignInActivity extends AppCompatActivity {
-    private TextInputEditText emailEditText, passwordEditText;
+    private static final String KEY_EMAIL = "email";
+    private static final String KEY_PASSWORD = "password";
+
+    private TextInputLayout emailLayout, passwordLayout;
+    private TextInputEditText emailInput, passwordInput;
     private MaterialButton signInButton, signUpButton, resetPasswordButton;
-    private ProgressBar progressBar;
-    private FirebaseAuth auth;
+    private View progressBar;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        auth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         initializeViews();
         setupClickListeners();
 
-        // Check if user is already signed in and email is verified
-        FirebaseUser currentUser = auth.getCurrentUser();
+        // Check if user is already signed in
+        FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null && currentUser.isEmailVerified()) {
             navigateToMainActivity();
+            return;
+        }
+
+        // Restore saved state if available
+        if (savedInstanceState != null) {
+            emailInput.setText(savedInstanceState.getString(KEY_EMAIL, ""));
+            passwordInput.setText(savedInstanceState.getString(KEY_PASSWORD, ""));
         }
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(KEY_EMAIL, emailInput.getText().toString());
+        outState.putString(KEY_PASSWORD, passwordInput.getText().toString());
+    }
+
     private void initializeViews() {
-        emailEditText = findViewById(R.id.emailEditText);
-        passwordEditText = findViewById(R.id.passwordEditText);
+        emailLayout = findViewById(R.id.emailLayout);
+        passwordLayout = findViewById(R.id.passwordLayout);
+        emailInput = findViewById(R.id.emailInput);
+        passwordInput = findViewById(R.id.passwordInput);
         signInButton = findViewById(R.id.signInButton);
         signUpButton = findViewById(R.id.signUpButton);
         resetPasswordButton = findViewById(R.id.resetPasswordButton);
@@ -56,89 +77,120 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void signIn() {
-        String email = emailEditText.getText().toString().trim();
-        String password = passwordEditText.getText().toString().trim();
-
-        if (!validateInputs(email, password)) {
+        if (!validateInputs()) {
             return;
         }
 
+        String email = emailInput.getText().toString().trim();
+        String password = passwordInput.getText().toString().trim();
+
         showProgress(true);
-        auth.signInWithEmailAndPassword(email, password)
+
+        mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     showProgress(false);
                     if (task.isSuccessful()) {
-                        FirebaseUser user = auth.getCurrentUser();
+                        FirebaseUser user = mAuth.getCurrentUser();
                         if (user != null && user.isEmailVerified()) {
                             navigateToMainActivity();
                         } else {
-                            Toast.makeText(SignInActivity.this,
-                                    "Please verify your email address",
-                                    Toast.LENGTH_LONG).show();
-                            // Send verification email
                             sendVerificationEmail();
                         }
                     } else {
-                        Toast.makeText(SignInActivity.this,
-                                "Authentication failed: " + task.getException().getMessage(),
-                                Toast.LENGTH_SHORT).show();
+                        handleSignInError(task.getException());
                     }
                 });
     }
 
+    private void handleSignInError(Exception exception) {
+        String errorMessage = exception != null ? exception.getMessage() : "Authentication failed";
+
+        if (errorMessage.contains("no user record")) {
+            emailLayout.setError(getString(R.string.error_email_not_found));
+        } else if (errorMessage.contains("password is invalid")) {
+            passwordLayout.setError(getString(R.string.error_invalid_password));
+        } else if (errorMessage.contains("badly formatted")) {
+            emailLayout.setError(getString(R.string.error_invalid_email));
+        } else {
+            Toast.makeText(SignInActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void resetPassword() {
-        String email = emailEditText.getText().toString().trim();
+        String email = emailInput.getText().toString().trim();
         if (email.isEmpty()) {
-            emailEditText.setError("Please enter your email address");
+            emailLayout.setError(getString(R.string.error_field_required));
             return;
         }
 
         showProgress(true);
-        auth.sendPasswordResetEmail(email)
+
+        mAuth.sendPasswordResetEmail(email)
                 .addOnCompleteListener(task -> {
                     showProgress(false);
                     if (task.isSuccessful()) {
                         Toast.makeText(SignInActivity.this,
-                                "Password reset email sent. Please check your inbox.",
-                                Toast.LENGTH_LONG).show();
+                                R.string.password_reset_email_sent, Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(SignInActivity.this,
-                                "Failed to send reset email: " + task.getException().getMessage(),
-                                Toast.LENGTH_SHORT).show();
+                        handlePasswordResetError(task.getException());
                     }
                 });
     }
 
+    private void handlePasswordResetError(Exception exception) {
+        String errorMessage = exception != null ? exception.getMessage() : "Password reset failed";
+        if (errorMessage.contains("badly formatted")) {
+            emailLayout.setError(getString(R.string.error_invalid_email));
+        } else {
+            Toast.makeText(SignInActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void sendVerificationEmail() {
-        FirebaseUser user = auth.getCurrentUser();
+        FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
-            showProgress(true);
             user.sendEmailVerification()
                     .addOnCompleteListener(task -> {
-                        showProgress(false);
                         if (task.isSuccessful()) {
                             Toast.makeText(SignInActivity.this,
-                                    "Verification email sent. Please check your inbox.",
-                                    Toast.LENGTH_LONG).show();
+                                    R.string.verification_email_sent, Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(SignInActivity.this,
-                                    "Failed to send verification email: " + task.getException().getMessage(),
-                                    Toast.LENGTH_SHORT).show();
+                                    R.string.error_sending_verification_email, Toast.LENGTH_SHORT).show();
                         }
                     });
         }
     }
 
-    private boolean validateInputs(String email, String password) {
+    private void navigateToMainActivity() {
+        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    private boolean validateInputs() {
+        boolean isValid = true;
+        String email = emailInput.getText().toString().trim();
+        String password = passwordInput.getText().toString().trim();
+
         if (email.isEmpty()) {
-            emailEditText.setError("Please enter your email address");
-            return false;
+            emailLayout.setError(getString(R.string.error_field_required));
+            isValid = false;
+        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            emailLayout.setError(getString(R.string.error_invalid_email));
+            isValid = false;
+        } else {
+            emailLayout.setError(null);
         }
+
         if (password.isEmpty()) {
-            passwordEditText.setError("Please enter your password");
-            return false;
+            passwordLayout.setError(getString(R.string.error_field_required));
+            isValid = false;
+        } else {
+            passwordLayout.setError(null);
         }
-        return true;
+
+        return isValid;
     }
 
     private void showProgress(boolean show) {
@@ -146,11 +198,5 @@ public class SignInActivity extends AppCompatActivity {
         signInButton.setEnabled(!show);
         signUpButton.setEnabled(!show);
         resetPasswordButton.setEnabled(!show);
-    }
-
-    private void navigateToMainActivity() {
-        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
     }
 }
