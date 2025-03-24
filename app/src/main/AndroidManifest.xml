@@ -4,6 +4,7 @@
     package="com.example.test_pawmatch">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -43,6 +44,10 @@
             android:name="com.example.test_pawmatch.activities.VaccinationManagementActivity"
             android:exported="false"
             android:label="Manage Vaccinations" />
+
+        <activity
+            android:name="com.example.test_pawmatch.activities.PreferencesActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

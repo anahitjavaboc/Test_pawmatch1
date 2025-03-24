@@ -26,4 +26,19 @@
     <!-- Success Messages -->
     <string name="verification_email_sent">Verification email sent. Please check your inbox.</string>
     <string name="password_reset_email_sent">Password reset email sent. Please check your inbox.</string>
+
+    <!-- Preferences -->
+    <string name="preferences_title">Preferences</string>
+    <string name="pet_type">Pet Type</string>
+    <string name="pet_size">Pet Size</string>
+    <string name="pet_age">Pet Age</string>
+    <string name="pet_gender">Pet Gender</string>
+    <string name="max_distance">Maximum Distance (km)</string>
+    <string name="enable_notifications">Enable Notifications</string>
+    <string name="enable_email_updates">Enable Email Updates</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="preferences_saved">Preferences saved successfully</string>
+    <string name="error_invalid_distance">Distance must be between 1 and 100 km</string>
+    <string name="error_invalid_number">Please enter a valid number</string>
 </resources>
