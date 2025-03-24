@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Test_pawmatch</string>
+    <string name="welcome_to_pawmatch">Welcome to PawMatch</string>
 </resources>

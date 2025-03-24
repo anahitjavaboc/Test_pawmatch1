@@ -39,6 +39,7 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.firebase.auth)
+    
 
     // Firebase Firestore
     implementation("com.google.firebase:firebase-firestore:24.10.2")
@@ -58,4 +59,5 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
 }
