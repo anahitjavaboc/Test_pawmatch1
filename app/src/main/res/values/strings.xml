@@ -41,4 +41,18 @@
     <string name="preferences_saved">Preferences saved successfully</string>
     <string name="error_invalid_distance">Distance must be between 1 and 100 km</string>
     <string name="error_invalid_number">Please enter a valid number</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="your_name">Your Name</string>
+    <string name="bio">Bio</string>
+    <string name="tell_something_about_yourself">Tell something about yourself</string>
+    <string name="save_profile">Save Profile</string>
+    <string name="todo">TODO</string>
+    <string name="upload_pet_photo">Upload Pet Photo</string>
+    <string name="pet_name">Pet Name</string>
+    <string name="enter_your_pet_s_name">Enter your pet\'s name</string>
+    <string name="upload_photo">Upload Photo</string>
+    <string name="basic_information">Basic Information</string>
+    <string name="e">Pet Name</string>
+    <string name="age_in_years">Age (in years)</string>
+    <string name="personality">Personality</string>
 </resources>

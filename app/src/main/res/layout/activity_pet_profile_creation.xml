@@ -27,14 +27,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
-            android:text="Upload Photo"/>
+            android:text="@string/upload_photo"/>
 
         <!-- Basic Information Section -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Basic Information"
+            android:text="@string/basic_information"
             android:textSize="20sp"
             android:textStyle="bold"/>
 
@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="Pet Name">
+            android:hint="@string/e">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/nameEditText"
@@ -73,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="Age (in years)">
+            android:hint="@string/age_in_years">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ageEditText"
@@ -99,7 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Personality"
+            android:text="@string/personality"
             android:textSize="20sp"
             android:textStyle="bold"/>
 
