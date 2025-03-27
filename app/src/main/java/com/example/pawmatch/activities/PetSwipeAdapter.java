@@ -1,5 +1,6 @@
-package com.example.test_pawmatch.adapters;
+package com.example.pawmatch.activities;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.test_pawmatch.R;
-import com.example.test_pawmatch.models.Pet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,6 +109,7 @@ public class PetSwipeAdapter extends RecyclerView.Adapter<PetSwipeAdapter.PetVie
             });
         }
 
+        @SuppressLint("DefaultLocale")
         public void bind(Pet pet) {
             nameTextView.setText(pet.getName());
             typeTextView.setText(pet.getType());

@@ -1,4 +1,4 @@
-package com.example.pawmatch;
+package com.example.pawmatch.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +9,10 @@ import android.provider.MediaStore;
 import android.widget.*;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.test_pawmatch.MainActivity;
+import com.example.test_pawmatch.R;
+
 import java.io.IOException;
 
 public class ProfileCreationActivity extends AppCompatActivity {

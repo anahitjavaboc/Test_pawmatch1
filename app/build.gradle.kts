@@ -39,25 +39,29 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.firebase.auth)
-    
+    implementation (libs.card.stack.view)
 
-    // Firebase Firestore
-    implementation("com.google.firebase:firebase-firestore:24.10.2")
+    // Firebase Firestorm
+    implementation(libs.firebase.firestore)
 
     // Firebase Storage
-    implementation("com.google.firebase:firebase-storage:20.7.0")
+    implementation(libs.firebase.storage)
 
     // Glide for image loading
-    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation(libs.glide)
 
     // CircleImageView for profile pictures
-    implementation("de.hdodenhof:circleimageview:3.1.0")
+    implementation(libs.circleimageview)
 
     // CardStackView for swiping
     implementation(libs.card.stack.view)
 
+    implementation 'com.yuyakaido.android:card-stack-view:2.3.4'
+
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
 
 }

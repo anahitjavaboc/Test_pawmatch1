@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="nameLayout" type="id">a</item>
+    <item name="typeLayout" type="id">a</item>
+    <item name="breedLayout" type="id">a</item>
+    <item name="ageLayout" type="id">a</item>
+    <item name="sizeLayout" type="id">a</item>
+    <item name="genderLayout" type="id" />
+    <item name="nameInput" type="id">a</item>
+    <item name="typeInput" type="id">a</item>
+    <item name="breedInput" type="id">a</item>
+    <item name="ageInput" type="id">a</item>
+    <item name="sizeInput" type="id">a</item>
+    <item name="genderInput" type="id" />
+    <item name="nameTextView" type="id">e</item>
+    <item name="typeTextView" type="id">e</item>
+    <item name="breedTextView" type="id">e</item>
+    <item name="ageTextView" type="id">e</item>
+    <item name="sizeTextView" type="id">e</item>
+    <item name="genderTextView" type="id">e</item>
+    <item name="energyLevelTextView" type="id">e</item>
+    <item name="sociabilityTextView" type="id">e</item>
+    <item name="trainingLevelTextView" type="id">e</item>
+    <item name="specialNeedsTextView" type="id">e</item>
+    <item name="emailLayout" type="id">t</item>
+    <item name="passwordLayout" type="id">t</item>
+    <item name="emailInput" type="id">t</item>
+    <item name="passwordInput" type="id">t</item>
+    <item name="confirmPasswordLayout" type="id">w</item>
+    <item name="confirmPasswordInput" type="id">w</item>
+</resources>

@@ -55,4 +55,5 @@
     <string name="e">Pet Name</string>
     <string name="age_in_years">Age (in years)</string>
     <string name="personality">Personality</string>
+    <string name="pet_profile_created">f</string>
 </resources>

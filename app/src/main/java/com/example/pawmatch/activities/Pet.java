@@ -1,4 +1,4 @@
-package com.example.test_pawmatch.models;
+package com.example.pawmatch.activities;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.test_pawmatch.activities;
+package com.example.pawmatch.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,36 +15,31 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class SignInActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
     private static final String KEY_EMAIL = "email";
     private static final String KEY_PASSWORD = "password";
+    private static final String KEY_CONFIRM_PASSWORD = "confirm_password";
 
-    private TextInputLayout emailLayout, passwordLayout;
-    private TextInputEditText emailInput, passwordInput;
-    private MaterialButton signInButton, signUpButton, resetPasswordButton;
+    private TextInputLayout emailLayout, passwordLayout, confirmPasswordLayout;
+    private TextInputEditText emailInput, passwordInput, confirmPasswordInput;
+    private MaterialButton signUpButton, backToSignInButton;
     private View progressBar;
     private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in);
+        setContentView(R.layout.activity_sign_up);
 
         mAuth = FirebaseAuth.getInstance();
         initializeViews();
         setupClickListeners();
 
-        // Check if user is already signed in
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null && currentUser.isEmailVerified()) {
-            navigateToMainActivity();
-            return;
-        }
-
         // Restore saved state if available
         if (savedInstanceState != null) {
             emailInput.setText(savedInstanceState.getString(KEY_EMAIL, ""));
             passwordInput.setText(savedInstanceState.getString(KEY_PASSWORD, ""));
+            confirmPasswordInput.setText(savedInstanceState.getString(KEY_CONFIRM_PASSWORD, ""));
         }
     }
 
@@ -53,30 +48,31 @@ public class SignInActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putString(KEY_EMAIL, emailInput.getText().toString());
         outState.putString(KEY_PASSWORD, passwordInput.getText().toString());
+        outState.putString(KEY_CONFIRM_PASSWORD, confirmPasswordInput.getText().toString());
     }
 
     private void initializeViews() {
         emailLayout = findViewById(R.id.emailLayout);
         passwordLayout = findViewById(R.id.passwordLayout);
+        confirmPasswordLayout = findViewById(R.id.confirmPasswordLayout);
         emailInput = findViewById(R.id.emailInput);
         passwordInput = findViewById(R.id.passwordInput);
-        signInButton = findViewById(R.id.signInButton);
+        confirmPasswordInput = findViewById(R.id.confirmPasswordInput);
         signUpButton = findViewById(R.id.signUpButton);
-        resetPasswordButton = findViewById(R.id.resetPasswordButton);
+        backToSignInButton = findViewById(R.id.backToSignInButton);
         progressBar = findViewById(R.id.progressBar);
     }
 
     private void setupClickListeners() {
-        signInButton.setOnClickListener(v -> signIn());
-        signUpButton.setOnClickListener(v -> {
-            Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
+        signUpButton.setOnClickListener(v -> signUp());
+        backToSignInButton.setOnClickListener(v -> {
+            Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
             startActivity(intent);
             finish();
         });
-        resetPasswordButton.setOnClickListener(v -> resetPassword());
     }
 
-    private void signIn() {
+    private void signUp() {
         if (!validateInputs()) {
             return;
         }
@@ -86,63 +82,31 @@ public class SignInActivity extends AppCompatActivity {
 
         showProgress(true);
 
-        mAuth.signInWithEmailAndPassword(email, password)
+        mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     showProgress(false);
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
-                        if (user != null && user.isEmailVerified()) {
-                            navigateToMainActivity();
-                        } else {
+                        if (user != null) {
                             sendVerificationEmail();
                         }
                     } else {
-                        handleSignInError(task.getException());
+                        handleSignUpError(task.getException());
                     }
                 });
     }
 
-    private void handleSignInError(Exception exception) {
-        String errorMessage = exception != null ? exception.getMessage() : "Authentication failed";
+    private void handleSignUpError(Exception exception) {
+        String errorMessage = exception != null ? exception.getMessage() : "Registration failed";
 
-        if (errorMessage.contains("no user record")) {
-            emailLayout.setError(getString(R.string.error_email_not_found));
-        } else if (errorMessage.contains("password is invalid")) {
-            passwordLayout.setError(getString(R.string.error_invalid_password));
+        if (errorMessage.contains("email")) {
+            emailLayout.setError(getString(R.string.error_email_in_use));
+        } else if (errorMessage.contains("password")) {
+            passwordLayout.setError(getString(R.string.error_weak_password));
         } else if (errorMessage.contains("badly formatted")) {
             emailLayout.setError(getString(R.string.error_invalid_email));
         } else {
-            Toast.makeText(SignInActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void resetPassword() {
-        String email = emailInput.getText().toString().trim();
-        if (email.isEmpty()) {
-            emailLayout.setError(getString(R.string.error_field_required));
-            return;
-        }
-
-        showProgress(true);
-
-        mAuth.sendPasswordResetEmail(email)
-                .addOnCompleteListener(task -> {
-                    showProgress(false);
-                    if (task.isSuccessful()) {
-                        Toast.makeText(SignInActivity.this,
-                                R.string.password_reset_email_sent, Toast.LENGTH_SHORT).show();
-                    } else {
-                        handlePasswordResetError(task.getException());
-                    }
-                });
-    }
-
-    private void handlePasswordResetError(Exception exception) {
-        String errorMessage = exception != null ? exception.getMessage() : "Password reset failed";
-        if (errorMessage.contains("badly formatted")) {
-            emailLayout.setError(getString(R.string.error_invalid_email));
-        } else {
-            Toast.makeText(SignInActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignUpActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -152,10 +116,11 @@ public class SignInActivity extends AppCompatActivity {
             user.sendEmailVerification()
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            Toast.makeText(SignInActivity.this,
+                            Toast.makeText(SignUpActivity.this,
                                     R.string.verification_email_sent, Toast.LENGTH_SHORT).show();
+                            navigateToMainActivity();
                         } else {
-                            Toast.makeText(SignInActivity.this,
+                            Toast.makeText(SignUpActivity.this,
                                     R.string.error_sending_verification_email, Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -163,7 +128,7 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void navigateToMainActivity() {
-        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+        Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
@@ -172,6 +137,7 @@ public class SignInActivity extends AppCompatActivity {
         boolean isValid = true;
         String email = emailInput.getText().toString().trim();
         String password = passwordInput.getText().toString().trim();
+        String confirmPassword = confirmPasswordInput.getText().toString().trim();
 
         if (email.isEmpty()) {
             emailLayout.setError(getString(R.string.error_field_required));
@@ -186,8 +152,21 @@ public class SignInActivity extends AppCompatActivity {
         if (password.isEmpty()) {
             passwordLayout.setError(getString(R.string.error_field_required));
             isValid = false;
+        } else if (password.length() < 6) {
+            passwordLayout.setError(getString(R.string.error_password_too_short));
+            isValid = false;
         } else {
             passwordLayout.setError(null);
+        }
+
+        if (confirmPassword.isEmpty()) {
+            confirmPasswordLayout.setError(getString(R.string.error_field_required));
+            isValid = false;
+        } else if (!confirmPassword.equals(password)) {
+            confirmPasswordLayout.setError(getString(R.string.error_passwords_dont_match));
+            isValid = false;
+        } else {
+            confirmPasswordLayout.setError(null);
         }
 
         return isValid;
@@ -195,8 +174,7 @@ public class SignInActivity extends AppCompatActivity {
 
     private void showProgress(boolean show) {
         progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-        signInButton.setEnabled(!show);
         signUpButton.setEnabled(!show);
-        resetPasswordButton.setEnabled(!show);
+        backToSignInButton.setEnabled(!show);
     }
 }

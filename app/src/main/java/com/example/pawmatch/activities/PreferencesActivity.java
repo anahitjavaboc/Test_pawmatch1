@@ -1,4 +1,4 @@
-package com.example.test_pawmatch.activities;
+package com.example.pawmatch.activities;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;

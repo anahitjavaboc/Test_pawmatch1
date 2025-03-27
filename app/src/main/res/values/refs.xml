@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <drawable name="placeholder_pet">e</drawable>
+    <drawable name="error_pet">e</drawable>
+</resources>

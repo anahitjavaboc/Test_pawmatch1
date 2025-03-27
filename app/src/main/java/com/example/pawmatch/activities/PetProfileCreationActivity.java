@@ -1,5 +1,6 @@
-package com.example.test_pawmatch.activities;
+package com.example.pawmatch.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,12 +14,13 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.test_pawmatch.R;
-import com.example.test_pawmatch.models.Pet;
 import com.example.test_pawmatch.utils.FirebaseManager;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.storage.StorageReference;
+
+import java.util.Objects;
+//import com.google.firebase.storage.StorageReference;
 
 public class PetProfileCreationActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -51,6 +53,7 @@ public class PetProfileCreationActivity extends AppCompatActivity {
         setupClickListeners();
     }
 
+    @SuppressLint("WrongViewCast")
     private void initializeViews() {
         petImageView = findViewById(R.id.petImageView);
         nameLayout = findViewById(R.id.nameLayout);
@@ -92,12 +95,12 @@ public class PetProfileCreationActivity extends AppCompatActivity {
         showProgress(true);
 
         Pet pet = new Pet();
-        pet.setName(nameInput.getText().toString().trim());
-        pet.setType(typeInput.getText().toString().trim());
-        pet.setBreed(breedInput.getText().toString().trim());
-        pet.setAgeRange(ageInput.getText().toString().trim());
-        pet.setSize(sizeInput.getText().toString().trim());
-        pet.setGender(genderInput.getText().toString().trim());
+        pet.setName(Objects.requireNonNull(nameInput.getText()).toString().trim());
+        pet.setType(Objects.requireNonNull(typeInput.getText()).toString().trim());
+        pet.setBreed(Objects.requireNonNull(breedInput.getText()).toString().trim());
+        pet.setAgeRange(Objects.requireNonNull(ageInput.getText()).toString().trim());
+        pet.setSize(Objects.requireNonNull(sizeInput.getText()).toString().trim());
+        pet.setGender(Objects.requireNonNull(genderInput.getText()).toString().trim());
 
         if (selectedImageUri != null) {
             // Upload image first
@@ -141,42 +144,42 @@ public class PetProfileCreationActivity extends AppCompatActivity {
     private boolean validateInputs() {
         boolean isValid = true;
 
-        if (nameInput.getText().toString().trim().isEmpty()) {
+        if (Objects.requireNonNull(nameInput.getText()).toString().trim().isEmpty()) {
             nameLayout.setError(getString(R.string.error_field_required));
             isValid = false;
         } else {
             nameLayout.setError(null);
         }
 
-        if (typeInput.getText().toString().trim().isEmpty()) {
+        if (Objects.requireNonNull(typeInput.getText()).toString().trim().isEmpty()) {
             typeLayout.setError(getString(R.string.error_field_required));
             isValid = false;
         } else {
             typeLayout.setError(null);
         }
 
-        if (breedInput.getText().toString().trim().isEmpty()) {
+        if (Objects.requireNonNull(breedInput.getText()).toString().trim().isEmpty()) {
             breedLayout.setError(getString(R.string.error_field_required));
             isValid = false;
         } else {
             breedLayout.setError(null);
         }
 
-        if (ageInput.getText().toString().trim().isEmpty()) {
+        if (Objects.requireNonNull(ageInput.getText()).toString().trim().isEmpty()) {
             ageLayout.setError(getString(R.string.error_field_required));
             isValid = false;
         } else {
             ageLayout.setError(null);
         }
 
-        if (sizeInput.getText().toString().trim().isEmpty()) {
+        if (Objects.requireNonNull(sizeInput.getText()).toString().trim().isEmpty()) {
             sizeLayout.setError(getString(R.string.error_field_required));
             isValid = false;
         } else {
             sizeLayout.setError(null);
         }
 
-        if (genderInput.getText().toString().trim().isEmpty()) {
+        if (Objects.requireNonNull(genderInput.getText()).toString().trim().isEmpty()) {
             genderLayout.setError(getString(R.string.error_field_required));
             isValid = false;
         } else {
