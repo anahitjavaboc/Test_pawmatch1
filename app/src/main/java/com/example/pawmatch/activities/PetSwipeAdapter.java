@@ -138,5 +138,74 @@ public class PetSwipeAdapter extends RecyclerView.Adapter<PetSwipeAdapter.PetVie
                 petImageView.setImageResource(R.drawable.placeholder_pet);
             }
         }
+package com.example.pawmatch.activities;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+import com.bumptech.glide.Glide;
+import com.example.pawmatch.R;
+import java.util.List;
+
+        public class PetAdapter extends RecyclerView.Adapter<PetAdapter.petViewHolder> {
+            private final List<Pet> petList;
+            private final OnPetClickListener listener;
+
+            public interface OnPetClickListener {
+                void onPetClick(Pet pet);
+            }
+
+            public PetAdapter(List<Pet> petList, OnPetClickListener listener) {
+                this.petList = petList;
+                this.listener = listener;
+            }
+
+            @NonNull
+            @Override
+            public petViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_pet_card, parent, false);
+                return new petViewHolder(view);
+            }
+
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onBindViewHolder(@NonNull petViewHolder holder, int position) {
+                Pet pet = petList.get(position);
+                holder.petName.setText(pet.getName());
+                holder.petBio.setText("Breed: " + pet.getBreed());
+
+                // Load image using Glide
+                Glide.with(holder.itemView.getContext())
+                        .load(pet.getImageUrl())
+                        .placeholder(R.drawable.ic_pet_placeholder)
+                        .into(holder.petImage);
+
+                holder.itemView.setOnClickListener(v -> listener.onPetClick(pet));
+            }
+
+            @Override
+            public int getItemCount() {
+                return petList.size();
+            }
+
+            public static class petViewHolder extends RecyclerView.ViewHolder {
+                ImageView petImage;
+                TextView petName, petBio;
+
+                public petViewHolder(@NonNull View itemView) {
+                    super(itemView);
+                    petImage = itemView.findViewById(R.id.petImageView);
+                    petName = itemView.findViewById(R.id.petNameText);
+                    petBio = itemView.findViewById(R.id.petBioText);
+                }
+            }
+        }
+
+
     }
-} 
+
+}

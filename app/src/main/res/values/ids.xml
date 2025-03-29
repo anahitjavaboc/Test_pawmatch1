@@ -28,4 +28,6 @@
     <item name="passwordInput" type="id">t</item>
     <item name="confirmPasswordLayout" type="id">w</item>
     <item name="confirmPasswordInput" type="id">w</item>
+    <item name="petNameText" type="id">a</item>
+    <item name="petBioText" type="id">w</item>
 </resources>

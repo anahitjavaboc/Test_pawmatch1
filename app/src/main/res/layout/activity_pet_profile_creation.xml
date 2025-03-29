@@ -27,9 +27,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
-            android:text="@string/upload_photo"/>
+            android:text="@string/upload_photo"
+            android:backgroundTint="@color/orange_color"
+            android:textColor="@android:color/white" />
 
-        <!-- Basic Information Section -->
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -220,36 +222,46 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/manage_vaccinations"/>
+            android:text="@string/manage_vaccinations"
+            android:backgroundTint="@color/orange_color"
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/medicalConditionsButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/manage_medical_conditions"/>
+            android:text="@string/manage_medical_conditions"
+            android:backgroundTint="@color/orange_color"
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/medicationsButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/manage_medications"/>
+            android:text="@string/manage_medications"
+            android:backgroundTint="@color/orange_color"
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/vetAppointmentsButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/manage_vet_appointments"/>
+            android:text="@string/manage_vet_appointments"
+            android:backgroundTint="@color/orange_color"
+            android:textColor="@android:color/white" />
 
-        <!-- Save Button -->
         <Button
             android:id="@+id/saveButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="@string/save_profilex"/>
+            android:text="@string/save_profilex"
+            android:backgroundTint="@color/orange_color"
+            android:textColor="@android:color/white" />
+
 
         <ProgressBar
             android:id="@+id/progressBar"
