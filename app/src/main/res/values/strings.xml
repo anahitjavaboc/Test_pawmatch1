@@ -56,4 +56,26 @@
     <string name="age_in_years">Age (in years)</string>
     <string name="personality">Personality</string>
     <string name="pet_profile_created">f</string>
+    <string name="welcome_to_pawmatch">Welcome to PawMatch</string>
+    <string name="manage_vaccinations">Manage Vaccinations</string>
+    <string name="manage_medical_conditions">Manage Medical Conditions</string>
+    <string name="health_profile">Health Profile</string>
+    <string name="tell_us_about_your_pet">Tell us about your pet</string>
+    <string name="description">Description</string>
+    <string name="location">Location</string>
+    <string name="locationn">Location</string>
+    <string name="special_needs">Special Needs</string>
+    <string name="training_level">Training Level</string>
+    <string name="sociability">Sociability</string>
+    <string name="energy_level">Energy Level</string>
+    <string name="manage_medications">Manage Medications</string>
+    <string name="manage_vet_appointments">Manage Vet Appointments</string>
+    <string name="save_profilex">Save Profile</string>
+    <string name="welcome_to_pawmatchh">Welcome to PawMatch</string>
+    <string name="emaill">Email</string>
+    <string name="passwordd">Password</string>
+    <string name="sign_inm">Sign In</string>
+    <string name="create_new_accounth">Create New Account</string>
+    <string name="gforgot_password">Forgot Password?</string>
+    <string name="pet_image">Pet Image</string>
 </resources>

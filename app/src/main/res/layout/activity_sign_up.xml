@@ -74,14 +74,18 @@
         android:layout_height="wrap_content"
         android:text="Sign Up"
         android:padding="12dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/orange_color"
+        android:textColor="@android:color/white" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/backToSignInButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Already have an account? Sign In"
-        style="@style/Widget.MaterialComponents.Button.TextButton"/>
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:textColor="@color/orange_color" />
+
 
     <ProgressBar
         android:id="@+id/progressBar"

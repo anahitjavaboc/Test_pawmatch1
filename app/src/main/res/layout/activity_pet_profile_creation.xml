@@ -107,7 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Energy Level"/>
+            android:text="@string/energy_level"/>
 
         <RatingBar
             android:id="@+id/energyLevelRatingBar"
@@ -121,7 +121,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Sociability"/>
+            android:text="@string/sociability"/>
 
         <RatingBar
             android:id="@+id/sociabilityRatingBar"
@@ -135,7 +135,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Training Level"/>
+            android:text="@string/training_level"/>
 
         <RatingBar
             android:id="@+id/trainingLevelRatingBar"
@@ -150,7 +150,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Special Needs"
+            android:text="@string/special_needs"
             android:textSize="20sp"
             android:textStyle="bold"/>
 
@@ -165,7 +165,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Location"
+            android:text="@string/locationn"
             android:textSize="20sp"
             android:textStyle="bold"/>
 
@@ -173,7 +173,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="Location">
+            android:hint="@string/location">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/locationEditText"
@@ -187,7 +187,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Description"
+            android:text="@string/description"
             android:textSize="20sp"
             android:textStyle="bold"/>
 
@@ -195,7 +195,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="Tell us about your pet">
+            android:hint="@string/tell_us_about_your_pet">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/descriptionEditText"
@@ -211,7 +211,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Health Profile"
+            android:text="@string/health_profile"
             android:textSize="20sp"
             android:textStyle="bold"/>
 
@@ -220,28 +220,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Manage Vaccinations"/>
+            android:text="@string/manage_vaccinations"/>
 
         <Button
             android:id="@+id/medicalConditionsButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Manage Medical Conditions"/>
+            android:text="@string/manage_medical_conditions"/>
 
         <Button
             android:id="@+id/medicationsButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Manage Medications"/>
+            android:text="@string/manage_medications"/>
 
         <Button
             android:id="@+id/vetAppointmentsButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Manage Vet Appointments"/>
+            android:text="@string/manage_vet_appointments"/>
 
         <!-- Save Button -->
         <Button
@@ -249,7 +249,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="Save Profile"/>
+            android:text="@string/save_profilex"/>
 
         <ProgressBar
             android:id="@+id/progressBar"

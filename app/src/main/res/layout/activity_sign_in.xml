@@ -16,7 +16,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to PawMatch"
+        android:text="@string/welcome_to_pawmatchh"
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_marginBottom="32dp"/>
@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:hint="Email"
+        android:hint="@string/emaill"
         app:startIconDrawable="@drawable/ic_email"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        android:hint="Password"
+        android:hint="@string/passwordd"
         app:startIconDrawable="@drawable/ic_lock"
         app:endIconMode="password_toggle"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -56,25 +56,33 @@
         android:id="@+id/signInButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign In"
+        android:text="@string/sign_inm"
         android:padding="12dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/orange_color"
+        android:textColor="@android:color/white" />
+
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/signUpButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Create New Account"
+        android:text="@string/create_new_accounth"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:padding="12dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:strokeColor="@color/orange_color"
+        android:strokeWidth="2dp"
+        android:textColor="@color/orange_color" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/resetPasswordButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Forgot Password?"
-        style="@style/Widget.MaterialComponents.Button.TextButton"/>
+        android:text="@string/gforgot_password"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:textColor="@color/orange_color" />
+
 
     <ProgressBar
         android:id="@+id/progressBar"

@@ -1,4 +1,7 @@
 val implementation: Unit
+    get() {
+        TODO()
+    }
 
 plugins {
     alias(libs.plugins.android.application)
@@ -43,6 +46,9 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation (libs.card.stack.view)
 
+    implementation (libs.card.stack.view)
+
+
     // Firebase Firestorm
     implementation(libs.firebase.firestore)
 
@@ -57,8 +63,8 @@ dependencies {
 
     // CardStackView for swiping
     implementation(libs.card.stack.view)
-
-    implementation 'com.yuyakaido.android:card-stack-view:2.3.4';
+//    implementation 'com.android.support:appcompat-v7:28.0.0'
+//    implementation 'com.yuyakaido.android:card-stack-view:2.3.4';
 
 
     testImplementation(libs.junit)

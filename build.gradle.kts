@@ -20,8 +20,10 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        mavenCentral()
     }
 }
+
 
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
