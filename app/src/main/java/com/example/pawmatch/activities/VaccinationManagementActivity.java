@@ -1,6 +1,7 @@
 package com.example.pawmatch.activities;
 
 import android.app.DatePickerDialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -196,17 +197,21 @@ public class VaccinationManagementActivity extends AppCompatActivity {
     }
 
     private boolean validateInputs() {
-        if (vaccinationNameEditText.getText().toString().trim().isEmpty()) {
-            vaccinationNameEditText.setError("Please enter vaccination name");
-            return false;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+            if (vaccinationNameEditText.getText().toString().trim().isEmpty()) {
+                vaccinationNameEditText.setError("Please enter vaccination name");
+                return false;
+            }
         }
         if (vaccinationDateEditText.getText().toString().trim().isEmpty()) {
             vaccinationDateEditText.setError("Please select date administered");
             return false;
         }
-        if (nextDueDateEditText.getText().toString().trim().isEmpty()) {
-            nextDueDateEditText.setError("Please select next due date");
-            return false;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+            if (nextDueDateEditText.getText().toString().trim().isEmpty()) {
+                nextDueDateEditText.setError("Please select next due date");
+                return false;
+            }
         }
         return true;
     }

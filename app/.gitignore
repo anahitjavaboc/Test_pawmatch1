@@ -1,1 +1,20 @@
-/build
+# Gradle files
+.gradle
+build/
+
+# Local configuration files
+local.properties
+
+# Android Studio specific files
+.idea/
+
+# Logs
+*.log
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.swp

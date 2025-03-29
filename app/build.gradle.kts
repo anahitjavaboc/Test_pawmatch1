@@ -1,3 +1,5 @@
+val implementation: Unit
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.google.gms.google.services)
@@ -56,7 +58,7 @@ dependencies {
     // CardStackView for swiping
     implementation(libs.card.stack.view)
 
-    implementation 'com.yuyakaido.android:card-stack-view:2.3.4'
+    implementation 'com.yuyakaido.android:card-stack-view:2.3.4';
 
 
     testImplementation(libs.junit)
