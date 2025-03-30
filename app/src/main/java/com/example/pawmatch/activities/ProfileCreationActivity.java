@@ -19,8 +19,6 @@ public class ProfileCreationActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     private ImageView petImageView;
     private EditText petNameEditText, petBioEditText;
-    private Button uploadImageButton, saveProfileButton;
-    private Uri imageUri;
     private SharedPreferences preferences;
 
     @Override
@@ -29,10 +27,10 @@ public class ProfileCreationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_creation);
 
         petImageView = findViewById(R.id.petImageView);
-        uploadImageButton = findViewById(R.id.uploadImageButton);
+        Button uploadImageButton = findViewById(R.id.uploadImageButton);
         petNameEditText = findViewById(R.id.petNameEditText);
         petBioEditText = findViewById(R.id.petBioEditText);
-        saveProfileButton = findViewById(R.id.saveProfileButton);
+        Button saveProfileButton = findViewById(R.id.saveProfileButton);
 
         preferences = getSharedPreferences("UserPreferences", MODE_PRIVATE);
 
@@ -52,7 +50,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
-            imageUri = data.getData();
+            Uri imageUri = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
                 petImageView.setImageBitmap(bitmap);

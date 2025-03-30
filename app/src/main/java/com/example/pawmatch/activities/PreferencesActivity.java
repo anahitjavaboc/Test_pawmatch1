@@ -13,6 +13,8 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.Objects;
+
 public class PreferencesActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "PawMatchPrefs";
     private static final String KEY_PET_TYPE = "pet_type";
@@ -85,11 +87,11 @@ public class PreferencesActivity extends AppCompatActivity {
         showProgress(true);
 
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(KEY_PET_TYPE, petTypeInput.getText().toString().trim());
-        editor.putString(KEY_PET_SIZE, petSizeInput.getText().toString().trim());
-        editor.putString(KEY_PET_AGE, petAgeInput.getText().toString().trim());
-        editor.putString(KEY_PET_GENDER, petGenderInput.getText().toString().trim());
-        editor.putString(KEY_MAX_DISTANCE, maxDistanceInput.getText().toString().trim());
+        editor.putString(KEY_PET_TYPE, Objects.requireNonNull(petTypeInput.getText()).toString().trim());
+        editor.putString(KEY_PET_SIZE, Objects.requireNonNull(petSizeInput.getText()).toString().trim());
+        editor.putString(KEY_PET_AGE, Objects.requireNonNull(petAgeInput.getText()).toString().trim());
+        editor.putString(KEY_PET_GENDER, Objects.requireNonNull(petGenderInput.getText()).toString().trim());
+        editor.putString(KEY_MAX_DISTANCE, Objects.requireNonNull(maxDistanceInput.getText()).toString().trim());
         editor.putBoolean(KEY_NOTIFICATIONS, notificationsSwitch.isChecked());
         editor.putBoolean(KEY_EMAIL_UPDATES, emailUpdatesSwitch.isChecked());
 
@@ -103,35 +105,35 @@ public class PreferencesActivity extends AppCompatActivity {
     private boolean validateInputs() {
         boolean isValid = true;
 
-        if (petTypeInput.getText().toString().trim().isEmpty()) {
+        if (Objects.requireNonNull(petTypeInput.getText()).toString().trim().isEmpty()) {
             petTypeLayout.setError(getString(R.string.error_field_required));
             isValid = false;
         } else {
             petTypeLayout.setError(null);
         }
 
-        if (petSizeInput.getText().toString().trim().isEmpty()) {
+        if (Objects.requireNonNull(petSizeInput.getText()).toString().trim().isEmpty()) {
             petSizeLayout.setError(getString(R.string.error_field_required));
             isValid = false;
         } else {
             petSizeLayout.setError(null);
         }
 
-        if (petAgeInput.getText().toString().trim().isEmpty()) {
+        if (Objects.requireNonNull(petAgeInput.getText()).toString().trim().isEmpty()) {
             petAgeLayout.setError(getString(R.string.error_field_required));
             isValid = false;
         } else {
             petAgeLayout.setError(null);
         }
 
-        if (petGenderInput.getText().toString().trim().isEmpty()) {
+        if (Objects.requireNonNull(petGenderInput.getText()).toString().trim().isEmpty()) {
             petGenderLayout.setError(getString(R.string.error_field_required));
             isValid = false;
         } else {
             petGenderLayout.setError(null);
         }
 
-        String maxDistance = maxDistanceInput.getText().toString().trim();
+        String maxDistance = Objects.requireNonNull(maxDistanceInput.getText()).toString().trim();
         if (maxDistance.isEmpty()) {
             maxDistanceLayout.setError(getString(R.string.error_field_required));
             isValid = false;

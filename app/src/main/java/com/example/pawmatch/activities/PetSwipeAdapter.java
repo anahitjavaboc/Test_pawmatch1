@@ -1,3 +1,16 @@
+package com.example.pawmatch.activities;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.test_pawmatch.R;
+
 public class PetSwipeAdapter extends RecyclerView.Adapter<PetSwipeAdapter.PetViewHolder> {
     private List<Pet> pets;
     private OnPetClickListener listener;
@@ -19,6 +32,12 @@ public class PetSwipeAdapter extends RecyclerView.Adapter<PetSwipeAdapter.PetVie
         return new PetViewHolder(view);
     }
 
+    @NonNull
+    @Override
+    public PetViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return null;
+    }
+
     @Override
     public void onBindViewHolder(@NonNull PetViewHolder holder, int position) {
         holder.bind(pets.get(position));
@@ -30,8 +49,10 @@ public class PetSwipeAdapter extends RecyclerView.Adapter<PetSwipeAdapter.PetVie
     }
 
     class PetViewHolder extends RecyclerView.ViewHolder {
-        private ImageView petImageView;
-        private TextView nameTextView, typeTextView, breedTextView;
+        private final ImageView petImageView;
+        private final TextView nameTextView;
+        private final TextView typeTextView;
+        private final TextView breedTextView;
 
         public PetViewHolder(@NonNull View itemView) {
             super(itemView);

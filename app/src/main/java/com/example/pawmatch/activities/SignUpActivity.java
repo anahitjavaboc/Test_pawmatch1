@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.test_pawmatch.MainActivity;
@@ -14,6 +15,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Objects;
 
 public class SignUpActivity extends AppCompatActivity {
     private static final String KEY_EMAIL = "email";
@@ -44,11 +47,11 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString(KEY_EMAIL, emailInput.getText().toString());
-        outState.putString(KEY_PASSWORD, passwordInput.getText().toString());
-        outState.putString(KEY_CONFIRM_PASSWORD, confirmPasswordInput.getText().toString());
+        outState.putString(KEY_EMAIL, Objects.requireNonNull(emailInput.getText()).toString());
+        outState.putString(KEY_PASSWORD, Objects.requireNonNull(passwordInput.getText()).toString());
+        outState.putString(KEY_CONFIRM_PASSWORD, Objects.requireNonNull(confirmPasswordInput.getText()).toString());
     }
 
     private void initializeViews() {
@@ -77,8 +80,8 @@ public class SignUpActivity extends AppCompatActivity {
             return;
         }
 
-        String email = emailInput.getText().toString().trim();
-        String password = passwordInput.getText().toString().trim();
+        String email = Objects.requireNonNull(emailInput.getText()).toString().trim();
+        String password = Objects.requireNonNull(passwordInput.getText()).toString().trim();
 
         showProgress(true);
 
@@ -99,6 +102,7 @@ public class SignUpActivity extends AppCompatActivity {
     private void handleSignUpError(Exception exception) {
         String errorMessage = exception != null ? exception.getMessage() : "Registration failed";
 
+        assert errorMessage != null;
         if (errorMessage.contains("email")) {
             emailLayout.setError(getString(R.string.error_email_in_use));
         } else if (errorMessage.contains("password")) {
@@ -135,9 +139,9 @@ public class SignUpActivity extends AppCompatActivity {
 
     private boolean validateInputs() {
         boolean isValid = true;
-        String email = emailInput.getText().toString().trim();
-        String password = passwordInput.getText().toString().trim();
-        String confirmPassword = confirmPasswordInput.getText().toString().trim();
+        String email = Objects.requireNonNull(emailInput.getText()).toString().trim();
+        String password = Objects.requireNonNull(passwordInput.getText()).toString().trim();
+        String confirmPassword = Objects.requireNonNull(confirmPasswordInput.getText()).toString().trim();
 
         if (email.isEmpty()) {
             emailLayout.setError(getString(R.string.error_field_required));

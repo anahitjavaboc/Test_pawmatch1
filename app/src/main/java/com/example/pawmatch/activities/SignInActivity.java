@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.test_pawmatch.MainActivity;
@@ -14,6 +15,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Objects;
 
 public class SignInActivity extends AppCompatActivity {
     private static final String KEY_EMAIL = "email";
@@ -49,10 +52,10 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString(KEY_EMAIL, emailInput.getText().toString());
-        outState.putString(KEY_PASSWORD, passwordInput.getText().toString());
+        outState.putString(KEY_EMAIL, Objects.requireNonNull(emailInput.getText()).toString());
+        outState.putString(KEY_PASSWORD, Objects.requireNonNull(passwordInput.getText()).toString());
     }
 
     private void initializeViews() {
@@ -81,8 +84,8 @@ public class SignInActivity extends AppCompatActivity {
             return;
         }
 
-        String email = emailInput.getText().toString().trim();
-        String password = passwordInput.getText().toString().trim();
+        String email = Objects.requireNonNull(emailInput.getText()).toString().trim();
+        String password = Objects.requireNonNull(passwordInput.getText()).toString().trim();
 
         showProgress(true);
 
@@ -117,7 +120,7 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void resetPassword() {
-        String email = emailInput.getText().toString().trim();
+        String email = Objects.requireNonNull(emailInput.getText()).toString().trim();
         if (email.isEmpty()) {
             emailLayout.setError(getString(R.string.error_field_required));
             return;
@@ -139,6 +142,7 @@ public class SignInActivity extends AppCompatActivity {
 
     private void handlePasswordResetError(Exception exception) {
         String errorMessage = exception != null ? exception.getMessage() : "Password reset failed";
+        assert errorMessage != null;
         if (errorMessage.contains("badly formatted")) {
             emailLayout.setError(getString(R.string.error_invalid_email));
         } else {
@@ -170,8 +174,8 @@ public class SignInActivity extends AppCompatActivity {
 
     private boolean validateInputs() {
         boolean isValid = true;
-        String email = emailInput.getText().toString().trim();
-        String password = passwordInput.getText().toString().trim();
+        String email = Objects.requireNonNull(emailInput.getText()).toString().trim();
+        String password = Objects.requireNonNull(passwordInput.getText()).toString().trim();
 
         if (email.isEmpty()) {
             emailLayout.setError(getString(R.string.error_field_required));

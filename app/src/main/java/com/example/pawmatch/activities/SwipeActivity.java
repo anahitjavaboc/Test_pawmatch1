@@ -17,9 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SwipeActivity extends AppCompatActivity {
-    private CardStackView cardStackView;
-    private CardStackLayoutManager manager;
-    private PetSwipeAdapter adapter;
     private List<Pet> petList;
 
     @Override
@@ -28,10 +25,10 @@ public class SwipeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_swipe);
 
         // Ensure the correct ID matches the XML file
-        cardStackView = findViewById(R.id.cardStackView);
+        CardStackView cardStackView = findViewById(R.id.cardStackView);
         petList = loadPetData();
 
-        manager = new CardStackLayoutManager(this, new CardStackListener() {
+        CardStackLayoutManager manager = new CardStackLayoutManager(this, new CardStackListener() {
             @Override
             public void onCardSwiped(com.yuyakaido.android.cardstackview.Direction direction) {
                 if (direction == com.example.android.cardstackview.Direction.Right) {
@@ -40,19 +37,24 @@ public class SwipeActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCardDragging(Direction direction, float ratio) {}
+            public void onCardDragging(Direction direction, float ratio) {
+            }
 
             @Override
-            public void onCardRewound() {}
+            public void onCardRewound() {
+            }
 
             @Override
-            public void onCardCanceled() {}
+            public void onCardCanceled() {
+            }
 
             @Override
-            public void onCardAppeared(View view, int position) {}
+            public void onCardAppeared(View view, int position) {
+            }
 
             @Override
-            public void onCardDisappeared(View view, int position) {}
+            public void onCardDisappeared(View view, int position) {
+            }
         });
 
         // Card Stack Manager settings
@@ -64,7 +66,7 @@ public class SwipeActivity extends AppCompatActivity {
         manager.setMaxDegree(20);
 
         // Setting up Adapter
-        adapter = new PetSwipeAdapter(this, petList);
+        PetSwipeAdapter adapter = new PetSwipeAdapter(this, petList);
         cardStackView.setLayoutManager(manager);
         cardStackView.setAdapter(adapter);
         cardStackView.setItemAnimator(new DefaultItemAnimator());
