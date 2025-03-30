@@ -67,9 +67,15 @@ dependencies {
 //    implementation 'com.yuyakaido.android:card-stack-view:2.3.4';
 
 
+
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
 
 }
+//dependencies {
+//    implementation 'com.github.yuyakaido:CardStackView:v2.3.4'
+//}
+//

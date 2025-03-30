@@ -29,6 +29,9 @@ public class Pet {
         vetAppointments = new ArrayList<>();
     }
 
+    public Pet(String whiskers, String cat, String siamese, String s, String small, String female, int i, int i1, int i2, boolean b, String s1) {
+    }
+
     // Getters and Setters
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
