@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test_pawmatch.R;
 
+import java.util.List;
+
 public class PetSwipeAdapter extends RecyclerView.Adapter<PetSwipeAdapter.PetViewHolder> {
     private List<Pet> pets;
     private OnPetClickListener listener;

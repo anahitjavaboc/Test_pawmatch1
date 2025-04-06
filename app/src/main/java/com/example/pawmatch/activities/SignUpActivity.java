@@ -1,32 +1,27 @@
-package com.example.pawmatch.activities;
+package com.example.pawmatch.activities; // Replace with your actual package name
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.test_pawmatch.MainActivity;
+import com.example.pawmatch.activities.SignInActivity;
 import com.example.test_pawmatch.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
 public class SignUpActivity extends AppCompatActivity {
-    private static final String KEY_EMAIL = "email";
-    private static final String KEY_PASSWORD = "password";
-    private static final String KEY_CONFIRM_PASSWORD = "confirm_password";
 
-    private TextInputLayout emailLayout, passwordLayout, confirmPasswordLayout;
-    private TextInputEditText emailInput, passwordInput, confirmPasswordInput;
-    private MaterialButton signUpButton, backToSignInButton;
-    private View progressBar;
+    private TextInputEditText emailEditText, passwordEditText, confirmPasswordEditText;
+    private MaterialButton signUpButton;
+    private ProgressBar progressBar;
+
     private FirebaseAuth mAuth;
 
     @Override
@@ -34,40 +29,19 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+        // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-        initializeViews();
-        setupClickListeners();
 
-        // Restore saved state if available
-        if (savedInstanceState != null) {
-            emailInput.setText(savedInstanceState.getString(KEY_EMAIL, ""));
-            passwordInput.setText(savedInstanceState.getString(KEY_PASSWORD, ""));
-            confirmPasswordInput.setText(savedInstanceState.getString(KEY_CONFIRM_PASSWORD, ""));
-        }
-    }
-
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString(KEY_EMAIL, Objects.requireNonNull(emailInput.getText()).toString());
-        outState.putString(KEY_PASSWORD, Objects.requireNonNull(passwordInput.getText()).toString());
-        outState.putString(KEY_CONFIRM_PASSWORD, Objects.requireNonNull(confirmPasswordInput.getText()).toString());
-    }
-
-    private void initializeViews() {
-        emailLayout = findViewById(R.id.emailLayout);
-        passwordLayout = findViewById(R.id.passwordLayout);
-        confirmPasswordLayout = findViewById(R.id.confirmPasswordLayout);
-        emailInput = findViewById(R.id.emailInput);
-        passwordInput = findViewById(R.id.passwordInput);
-        confirmPasswordInput = findViewById(R.id.confirmPasswordInput);
+        // Get views
+        emailEditText = findViewById(R.id.emailEditText);
+        passwordEditText = findViewById(R.id.passwordEditText);
+        confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText);
         signUpButton = findViewById(R.id.signUpButton);
-        backToSignInButton = findViewById(R.id.backToSignInButton);
+        MaterialButton backToSignInButton = findViewById(R.id.backToSignInButton);
         progressBar = findViewById(R.id.progressBar);
-    }
 
-    private void setupClickListeners() {
-        signUpButton.setOnClickListener(v -> signUp());
+        signUpButton.setOnClickListener(v -> registerUser());
+
         backToSignInButton.setOnClickListener(v -> {
             Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
             startActivity(intent);
@@ -75,110 +49,37 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    private void signUp() {
-        if (!validateInputs()) {
+    private void registerUser() {
+        String email = Objects.requireNonNull(emailEditText.getText()).toString().trim();
+        String password = Objects.requireNonNull(passwordEditText.getText()).toString().trim();
+        String confirmPassword = Objects.requireNonNull(confirmPasswordEditText.getText()).toString().trim();
+
+        if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        String email = Objects.requireNonNull(emailInput.getText()).toString().trim();
-        String password = Objects.requireNonNull(passwordInput.getText()).toString().trim();
+        if (!password.equals(confirmPassword)) {
+            Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        showProgress(true);
+        progressBar.setVisibility(View.VISIBLE);
+        signUpButton.setEnabled(false);
 
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, task -> {
-                    showProgress(false);
+                .addOnCompleteListener(task -> {
+                    progressBar.setVisibility(View.GONE);
+                    signUpButton.setEnabled(true);
+
                     if (task.isSuccessful()) {
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        if (user != null) {
-                            sendVerificationEmail();
-                        }
+                        Toast.makeText(SignUpActivity.this, "Account created!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(SignUpActivity.this, MainActivity.class); // <- You can change MainActivity to your actual home screen activity
+                        startActivity(intent);
+                        finish();
                     } else {
-                        handleSignUpError(task.getException());
+                        Toast.makeText(SignUpActivity.this, "Error: " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
-    }
-
-    private void handleSignUpError(Exception exception) {
-        String errorMessage = exception != null ? exception.getMessage() : "Registration failed";
-
-        assert errorMessage != null;
-        if (errorMessage.contains("email")) {
-            emailLayout.setError(getString(R.string.error_email_in_use));
-        } else if (errorMessage.contains("password")) {
-            passwordLayout.setError(getString(R.string.error_weak_password));
-        } else if (errorMessage.contains("badly formatted")) {
-            emailLayout.setError(getString(R.string.error_invalid_email));
-        } else {
-            Toast.makeText(SignUpActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void sendVerificationEmail() {
-        FirebaseUser user = mAuth.getCurrentUser();
-        if (user != null) {
-            user.sendEmailVerification()
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(SignUpActivity.this,
-                                    R.string.verification_email_sent, Toast.LENGTH_SHORT).show();
-                            navigateToMainActivity();
-                        } else {
-                            Toast.makeText(SignUpActivity.this,
-                                    R.string.error_sending_verification_email, Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        }
-    }
-
-    private void navigateToMainActivity() {
-        Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
-    private boolean validateInputs() {
-        boolean isValid = true;
-        String email = Objects.requireNonNull(emailInput.getText()).toString().trim();
-        String password = Objects.requireNonNull(passwordInput.getText()).toString().trim();
-        String confirmPassword = Objects.requireNonNull(confirmPasswordInput.getText()).toString().trim();
-
-        if (email.isEmpty()) {
-            emailLayout.setError(getString(R.string.error_field_required));
-            isValid = false;
-        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailLayout.setError(getString(R.string.error_invalid_email));
-            isValid = false;
-        } else {
-            emailLayout.setError(null);
-        }
-
-        if (password.isEmpty()) {
-            passwordLayout.setError(getString(R.string.error_field_required));
-            isValid = false;
-        } else if (password.length() < 6) {
-            passwordLayout.setError(getString(R.string.error_password_too_short));
-            isValid = false;
-        } else {
-            passwordLayout.setError(null);
-        }
-
-        if (confirmPassword.isEmpty()) {
-            confirmPasswordLayout.setError(getString(R.string.error_field_required));
-            isValid = false;
-        } else if (!confirmPassword.equals(password)) {
-            confirmPasswordLayout.setError(getString(R.string.error_passwords_dont_match));
-            isValid = false;
-        } else {
-            confirmPasswordLayout.setError(null);
-        }
-
-        return isValid;
-    }
-
-    private void showProgress(boolean show) {
-        progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-        signUpButton.setEnabled(!show);
-        backToSignInButton.setEnabled(!show);
     }
 }

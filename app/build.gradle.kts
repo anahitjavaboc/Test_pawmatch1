@@ -1,11 +1,6 @@
-val implementation: Unit
-    get() {
-        TODO()
-    }
-
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.google.gms.google.services)
+    alias(libs.plugins.google.gms.google.services) // Apply Google Services plugin
 }
 
 android {
@@ -31,6 +26,7 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -38,44 +34,40 @@ android {
 }
 
 dependencies {
-    implementation(libs.firebase.auth.v2231)
-    implementation(libs.appcompat)
-    implementation(libs.material)
-    implementation(libs.activity)
-    implementation(libs.constraintlayout)
-    implementation(libs.firebase.auth)
-    implementation (libs.card.stack.view)
+    // Firebase Authentication dependency (latest stable version)
+    implementation("com.google.firebase:firebase-auth:23.2.0")
 
-    implementation (libs.card.stack.view)
+    // Firebase Firestore dependency
+    implementation("com.google.firebase:firebase-firestore:24.3.0")
 
-
-    // Firebase Firestorm
-    implementation(libs.firebase.firestore)
-
-    // Firebase Storage
-    implementation(libs.firebase.storage)
+    // Firebase Storage dependency
+    implementation("com.google.firebase:firebase-storage:20.2.0")
 
     // Glide for image loading
-    implementation(libs.glide)
+    implementation("com.github.bumptech.glide:glide:4.14.2")
 
     // CircleImageView for profile pictures
-    implementation(libs.circleimageview)
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 
-    // CardStackView for swiping
-    implementation(libs.card.stack.view)
-//    implementation 'com.android.support:appcompat-v7:28.0.0'
-//    implementation 'com.yuyakaido.android:card-stack-view:2.3.4';
+    // CardStackView for swiping functionality
+    implementation("com.yuyakaido.android:card-stack-view:2.3.4") // Yuyakaido CardStackView
 
+    // Material Components for UI elements
+    implementation("com.google.android.material:material:1.6.0")
 
+    // AppCompat for backwards compatibility
+    implementation("androidx.appcompat:appcompat:1.5.1")
 
+    // Activity library for Activity-related functionality
+    implementation("androidx.activity:activity-ktx:1.6.1")
 
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
+    // ConstraintLayout for layouts
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
-
+    // Testing libraries
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.3")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
 }
-//dependencies {
-//    implementation 'com.github.yuyakaido:CardStackView:v2.3.4'
-//}
-//
+
+

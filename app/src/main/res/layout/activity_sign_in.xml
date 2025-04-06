@@ -62,7 +62,6 @@
         android:backgroundTint="@color/orange_color"
         android:textColor="@android:color/white" />
 
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/signUpButton"
         android:layout_width="match_parent"
@@ -83,12 +82,10 @@
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:textColor="@color/orange_color" />
 
-
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:visibility="gone"/>
-
 </LinearLayout>
