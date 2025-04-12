@@ -7,16 +7,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context="com.example.pawmatch.activities.PreferencesActivity">
+    android:background="@color/white"
+    tools:context=".activities.PreferencesActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/preferences_title"
         android:textAppearance="?attr/textAppearanceHeadline5"
+        android:textColor="@color/orange_color"
         android:gravity="center"
-        android:layout_marginBottom="24dp"/>
+        android:layout_marginBottom="24dp" />
 
+    <!-- PET TYPE -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/petTypeLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -24,16 +27,20 @@
         android:layout_height="wrap_content"
         android:hint="@string/pet_type"
         android:layout_marginBottom="16dp"
-        app:errorEnabled="true">
+        app:errorEnabled="true"
+        app:boxStrokeColor="@color/orange_color"
+        app:hintTextColor="@color/orange_color">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/petTypeInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"/>
+            android:textColor="@color/orange_color"
+            android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- PET SIZE -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/petSizeLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -41,16 +48,20 @@
         android:layout_height="wrap_content"
         android:hint="@string/pet_size"
         android:layout_marginBottom="16dp"
-        app:errorEnabled="true">
+        app:errorEnabled="true"
+        app:boxStrokeColor="@color/orange_color"
+        app:hintTextColor="@color/orange_color">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/petSizeInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"/>
+            android:textColor="@color/orange_color"
+            android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- PET AGE -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/petAgeLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -58,16 +69,20 @@
         android:layout_height="wrap_content"
         android:hint="@string/pet_age"
         android:layout_marginBottom="16dp"
-        app:errorEnabled="true">
+        app:errorEnabled="true"
+        app:boxStrokeColor="@color/orange_color"
+        app:hintTextColor="@color/orange_color">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/petAgeInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"/>
+            android:textColor="@color/orange_color"
+            android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- PET GENDER -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/petGenderLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -75,16 +90,20 @@
         android:layout_height="wrap_content"
         android:hint="@string/pet_gender"
         android:layout_marginBottom="16dp"
-        app:errorEnabled="true">
+        app:errorEnabled="true"
+        app:boxStrokeColor="@color/orange_color"
+        app:hintTextColor="@color/orange_color">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/petGenderInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"/>
+            android:textColor="@color/orange_color"
+            android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- MAX DISTANCE -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/maxDistanceLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -92,30 +111,41 @@
         android:layout_height="wrap_content"
         android:hint="@string/max_distance"
         android:layout_marginBottom="16dp"
-        app:errorEnabled="true">
+        app:errorEnabled="true"
+        app:boxStrokeColor="@color/orange_color"
+        app:hintTextColor="@color/orange_color">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/maxDistanceInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"/>
+            android:textColor="@color/orange_color"
+            android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- SWITCHES -->
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/notificationsSwitch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/enable_notifications"
-        android:layout_marginBottom="16dp"/>
+        android:textColor="@color/orange_color"
+        android:layout_marginBottom="16dp"
+        app:thumbTint="@color/orange_color"
+        app:trackTint="@color/orange_color" />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/emailUpdatesSwitch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/enable_email_updates"
-        android:layout_marginBottom="24dp"/>
+        android:textColor="@color/orange_color"
+        android:layout_marginBottom="24dp"
+        app:thumbTint="@color/orange_color"
+        app:trackTint="@color/orange_color" />
 
+    <!-- BUTTONS -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -128,26 +158,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cancel"
-            android:layout_marginEnd="8dp"
-            android:backgroundTint="@color/orange_color"
-            android:textColor="@android:color/white" />
-
+            android:textColor="@color/orange_color"
+            android:layout_marginEnd="8dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/saveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/save"
-            android:backgroundTint="@color/orange_color" />
+            android:backgroundTint="@color/orange_color"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 
+    <!-- PROGRESS BAR -->
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:visibility="gone"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:indeterminateTint="@color/orange_color" />
 
 </LinearLayout>

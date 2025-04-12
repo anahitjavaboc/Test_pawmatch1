@@ -19,7 +19,7 @@
             android:layout_marginTop="16dp"
             android:src="@drawable/ic_pet_placeholder"
             app:civ_border_width="2dp"
-            app:civ_border_color="@android:color/darker_gray"/>
+            app:civ_border_color="@android:color/darker_gray" />
 
         <Button
             android:id="@+id/uploadImageButton"
@@ -31,45 +31,44 @@
             android:backgroundTint="@color/orange_color"
             android:textColor="@android:color/white" />
 
-
+        <!-- Basic Information -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="@string/basic_information"
             android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="@string/e">
-
+            android:hint="Name">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/nameEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"/>
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Spinner
             android:id="@+id/petTypeSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp" />
 
         <Spinner
             android:id="@+id/breedSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp" />
 
         <Spinner
             android:id="@+id/ageRangeSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -81,20 +80,20 @@
                 android:id="@+id/ageEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"/>
+                android:inputType="numberDecimal" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Spinner
             android:id="@+id/sizeSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp" />
 
         <Spinner
             android:id="@+id/genderSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp" />
 
         <!-- Personality Section -->
         <TextView
@@ -103,13 +102,13 @@
             android:layout_marginTop="24dp"
             android:text="@string/personality"
             android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/energy_level"/>
+            android:text="@string/energy_level" />
 
         <RatingBar
             android:id="@+id/energyLevelRatingBar"
@@ -117,13 +116,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:numStars="5"
-            android:stepSize="1"/>
+            android:stepSize="1" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/sociability"/>
+            android:text="@string/sociability" />
 
         <RatingBar
             android:id="@+id/sociabilityRatingBar"
@@ -131,13 +130,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:numStars="5"
-            android:stepSize="1"/>
+            android:stepSize="1" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/training_level"/>
+            android:text="@string/training_level" />
 
         <RatingBar
             android:id="@+id/trainingLevelRatingBar"
@@ -145,7 +144,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:numStars="5"
-            android:stepSize="1"/>
+            android:stepSize="1" />
 
         <!-- Special Needs Section -->
         <TextView
@@ -154,22 +153,22 @@
             android:layout_marginTop="24dp"
             android:text="@string/special_needs"
             android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/specialNeedsChipGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp" />
 
         <!-- Location Section -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="@string/locationn"
+            android:text="@string/location"
             android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -181,7 +180,7 @@
                 android:id="@+id/locationEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"/>
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Description Section -->
@@ -191,7 +190,7 @@
             android:layout_marginTop="24dp"
             android:text="@string/description"
             android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -205,7 +204,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="top"
                 android:inputType="textMultiLine"
-                android:lines="4"/>
+                android:lines="4" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Health Profile Section -->
@@ -215,7 +214,7 @@
             android:layout_marginTop="24dp"
             android:text="@string/health_profile"
             android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/vaccinationsButton"
@@ -253,6 +252,7 @@
             android:backgroundTint="@color/orange_color"
             android:textColor="@android:color/white" />
 
+        <!-- Save Button and Progress -->
         <Button
             android:id="@+id/saveButton"
             android:layout_width="match_parent"
@@ -262,14 +262,12 @@
             android:backgroundTint="@color/orange_color"
             android:textColor="@android:color/white" />
 
-
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:visibility="gone"/>
-
+            android:visibility="gone" />
     </LinearLayout>
 </ScrollView>

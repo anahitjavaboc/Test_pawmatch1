@@ -35,39 +35,39 @@ android {
 
 dependencies {
     // Firebase Authentication dependency (latest stable version)
-    implementation("com.google.firebase:firebase-auth:23.2.0")
+    implementation(libs.firebase.auth)
 
     // Firebase Firestore dependency
-    implementation("com.google.firebase:firebase-firestore:24.3.0")
+    implementation(libs.firebase.firestore.v2430)
 
     // Firebase Storage dependency
-    implementation("com.google.firebase:firebase-storage:20.2.0")
+    implementation(libs.firebase.storage.v2020)
 
     // Glide for image loading
-    implementation("com.github.bumptech.glide:glide:4.14.2")
+    implementation(libs.glide.v4142)
 
     // CircleImageView for profile pictures
-    implementation("de.hdodenhof:circleimageview:3.1.0")
+    implementation(libs.circleimageview)
 
     // CardStackView for swiping functionality
-    implementation("com.yuyakaido.android:card-stack-view:2.3.4") // Yuyakaido CardStackView
+    implementation(libs.card.stack.view) // Yuyakaido CardStackView
 
     // Material Components for UI elements
-    implementation("com.google.android.material:material:1.6.0")
+    implementation(libs.material.v160)
 
     // AppCompat for backwards compatibility
-    implementation("androidx.appcompat:appcompat:1.5.1")
+    implementation(libs.appcompat.v151)
 
     // Activity library for Activity-related functionality
-    implementation("androidx.activity:activity-ktx:1.6.1")
+    implementation(libs.activity.ktx)
 
     // ConstraintLayout for layouts
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation(libs.constraintlayout.v214)
 
     // Testing libraries
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.junit.v113)
+    androidTestImplementation(libs.espresso.core.v340)
 }
 
 
