@@ -78,4 +78,10 @@
     <string name="create_new_accounth">Create New Account</string>
     <string name="gforgot_password">Forgot Password?</string>
     <string name="pet_image">Pet Image</string>
+    <string name="welcome_to_pawmatch">Welcome to PawMatch!</string>
+    <string name="welcome_text">Welcome text</string>
+    <string name="sign_up1">Sign Up</string>
+    <string name="sign_in1">Sign In</string>
+    <string name="welcome_text1">Welcome text</string>
+    <string name="welcome_to_pawmatch1">Welcome to PawMatch!</string>
 </resources>

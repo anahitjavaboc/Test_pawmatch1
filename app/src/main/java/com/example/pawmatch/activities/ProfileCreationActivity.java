@@ -10,6 +10,7 @@ import android.widget.*;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.pawmatch.MainActivity;
 import com.example.test_pawmatch.R;
 
 import java.io.IOException;
