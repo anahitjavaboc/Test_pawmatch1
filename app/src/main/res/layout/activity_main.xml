@@ -8,6 +8,15 @@
     android:gravity="center"
     android:background="#FF7A52"> <!-- Custom orange background -->
 
+
+<!--    <com.yuyakaido.android.cardstackview.CardStackView-->
+<!--        android:id="@+id/card_stack_view"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:swipeThreshold="0.3"-->
+<!--        app:visibleCount="3" />-->
+
+
     <!-- Welcome Text -->
     <TextView
         android:layout_width="wrap_content"
@@ -42,11 +51,6 @@
         android:textColor="@color/orange_color"
         app:cornerRadius="50dp" /> <!-- Rounded corners -->
 
-    <com.yuyakaido.android.cardstackview.CardStackView
-        android:id="@+id/card_stack_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:swipeThreshold="0.3"
-        app:visibleCount="3" />
+
 
 </LinearLayout>
