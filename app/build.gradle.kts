@@ -68,8 +68,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.junit.v113)
     androidTestImplementation(libs.espresso.core.v340)
-    implementation("com.yuyakaido.android:card-stack-view:2.3.4")
-
+    implementation(libs.cardstack)
 
 }
 

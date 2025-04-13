@@ -27,6 +27,7 @@ constraintlayout = "2.2.0"
 googleGmsGoogleServices = "4.4.2"
 firebaseAuth = "23.2.0"
 materialVersion = "1.6.0"
+cardStack = "2.3.4"
 
 [libraries]
 activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
@@ -55,6 +56,7 @@ activity = { group = "androidx.activity", name = "activity", version.ref = "acti
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 material-v160 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
+cardstack = { group = "com.yuyakaido.android", name = "card-stack-view", version.ref = "cardStack" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
