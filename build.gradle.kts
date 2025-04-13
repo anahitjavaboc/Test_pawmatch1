@@ -31,3 +31,14 @@ tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)  // Task to clean the build directory
 }
 
+//For anyone else having the same issue, it has changed source:
+//
+//com.yuyakaido.android:card-stack-view -> com.github.yuyakaido:cardstackview.
+//
+//Finally, make sure to add the following under project's build.gradle:
+//
+//allprojects {
+//    repositories {
+//        maven { url 'https://perimeterx.jfrog.io/artifactory/px-Android-SDK/' }
+//    }
+//}
