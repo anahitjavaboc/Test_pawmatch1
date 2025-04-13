@@ -1,9 +1,12 @@
 [versions]
 activityKtx = "1.10.1"
 agp = "8.8.1"
+androidxConstraintlayout = "2.2.1"
 androidxJunit = "1.1.3"
 appcompatVersion = "1.5.1"
 cardStackView = "2.3.4"
+cardstackviewVersion = "2.3.4"
+cardview = "1.0.0"
 circleimageview = "3.1.0"
 constraintlayoutVersion = "2.1.4"
 espressoCoreVersion = "3.4.0"
@@ -33,8 +36,11 @@ cardStack = "2.3.4"
 activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
 appcompat-v151 = { module = "androidx.appcompat:appcompat", version.ref = "appcompatVersion" }
 card-stack-view = { module = "com.yuyakaido.android:card-stack-view", version.ref = "cardStackView" }
+cardstackview = { module = "com.github.yuyakaido:CardStackView", version.ref = "cardstackviewVersion" }
+cardview = { module = "androidx.cardview:cardview", version.ref = "cardview" }
 circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
 constraintlayout-v214 = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayoutVersion" }
+constraintlayout-v221 = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidxConstraintlayout" }
 espresso-core-v340 = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCoreVersion" }
 firebase-auth-v2231 = { module = "com.google.firebase:firebase-auth", version.ref = "firebaseAuthVersion" }
 firebase-firestore = { module = "com.google.firebase:firebase-firestore", version.ref = "firebaseFirestore" }
