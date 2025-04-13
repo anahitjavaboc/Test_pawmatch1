@@ -33,7 +33,7 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         mAuth = FirebaseAuth.getInstance();
-        initializeViews();
+        initializeViews(); // Correctly initializes all views
         setupClickListeners();
 
         // Check if user is already signed in
@@ -60,8 +60,8 @@ public class SignInActivity extends AppCompatActivity {
     private void initializeViews() {
         emailLayout = findViewById(R.id.emailLayout);
         passwordLayout = findViewById(R.id.passwordLayout);
-        emailInput = findViewById(R.id.emailInput);
-        passwordInput = findViewById(R.id.passwordInput);
+        emailInput = findViewById(R.id.emailEditText); // Correctly set the ID for emailInput
+        passwordInput = findViewById(R.id.passwordEditText); // Correctly set the ID for passwordInput
         signInButton = findViewById(R.id.signInButton);
         signUpButton = findViewById(R.id.signUpButton);
         resetPasswordButton = findViewById(R.id.resetPasswordButton);

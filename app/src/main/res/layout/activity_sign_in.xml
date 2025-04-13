@@ -1,31 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:gravity="center">
+    android:gravity="center"
+    tools:context=".activities.SignInActivity">
 
+    <!-- Placeholder Image -->
     <ImageView
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:src="@drawable/ic_pet_placeholder"
-        android:layout_marginBottom="32dp"/>
+        android:layout_marginBottom="32dp"
+        android:contentDescription="@string/pet_image_placeholder" />
 
+    <!-- Welcome Text -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/welcome_to_pawmatchh"
+        android:text="@string/welcome_to_PawMatch"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:layout_marginBottom="32dp"/>
+        android:layout_marginBottom="32dp" />
 
+    <!-- Email Input -->
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:hint="@string/emaill"
+        android:hint="@string/Email"
         app:startIconDrawable="@drawable/ic_email"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -33,14 +40,16 @@
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"/>
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- Password Input -->
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        android:hint="@string/passwordd"
+        android:hint="@string/Password"
         app:startIconDrawable="@drawable/ic_lock"
         app:endIconMode="password_toggle"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -49,9 +58,10 @@
             android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- Sign In Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/signInButton"
         android:layout_width="match_parent"
@@ -62,11 +72,12 @@
         android:backgroundTint="@color/orange_color"
         android:textColor="@android:color/white" />
 
+    <!-- Sign Up Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/signUpButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/create_new_accounth"
+        android:text="@string/create_new_account"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:padding="12dp"
         android:layout_marginBottom="16dp"
@@ -74,18 +85,20 @@
         android:strokeWidth="2dp"
         android:textColor="@color/orange_color" />
 
+    <!-- Reset Password Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/resetPasswordButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/gforgot_password"
+        android:text="@string/Forgot_Password"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:textColor="@color/orange_color" />
 
+    <!-- Progress Bar -->
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 </LinearLayout>

@@ -12,6 +12,7 @@
     <string name="forgot_password">Forgot Password?</string>
     <string name="back_to_sign_in">Back to Sign In</string>
 
+
     <!-- Error Messages -->
     <string name="error_field_required">This field is required</string>
     <string name="error_invalid_email">Please enter a valid email address</string>
@@ -20,7 +21,7 @@
     <string name="error_email_in_use">This email is already registered</string>
     <string name="error_weak_password">Password is too weak</string>
     <string name="error_password_too_short">Password must be at least 6 characters</string>
-    <string name="error_passwords_dont_match">Passwords do not match</string>
+    <string name="error_passwords_don't_match">Passwords do not match</string>
     <string name="error_sending_verification_email">Failed to send verification email</string>
 
     <!-- Success Messages -->
@@ -56,14 +57,13 @@
     <string name="age_in_years">Age (in years)</string>
     <string name="personality">Personality</string>
     <string name="pet_profile_created">f</string>
-    <string name="welcome_to_pawmatch">Welcome to PawMatch</string>
+    <string name="welcome_to_PawMatch">Welcome to PawMatch</string>
     <string name="manage_vaccinations">Manage Vaccinations</string>
     <string name="manage_medical_conditions">Manage Medical Conditions</string>
     <string name="health_profile">Health Profile</string>
     <string name="tell_us_about_your_pet">Tell us about your pet</string>
     <string name="description">Description</string>
     <string name="location">Location</string>
-    <string name="locationn">Location</string>
     <string name="special_needs">Special Needs</string>
     <string name="training_level">Training Level</string>
     <string name="sociability">Sociability</string>
