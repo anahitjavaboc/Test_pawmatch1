@@ -84,5 +84,6 @@
     <string name="sign_in1">Sign In</string>
     <string name="welcome_to_pawmatch1">Welcome to PawMatch!</string>
     <string name="welcome_text1">Welcome text for PawMatch</string>
+    <string name="random_card_content">random_card_content</string>
 
 </resources>
