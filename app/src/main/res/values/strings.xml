@@ -12,7 +12,6 @@
     <string name="forgot_password">Forgot Password?</string>
     <string name="back_to_sign_in">Back to Sign In</string>
 
-
     <!-- Error Messages -->
     <string name="error_field_required">This field is required</string>
     <string name="error_invalid_email">Please enter a valid email address</string>
@@ -21,7 +20,7 @@
     <string name="error_email_in_use">This email is already registered</string>
     <string name="error_weak_password">Password is too weak</string>
     <string name="error_password_too_short">Password must be at least 6 characters</string>
-    <string name="error_passwords_don't_match">Passwords do not match</string>
+    <string name="error_passwords_dont_match">Passwords do not match</string>
     <string name="error_sending_verification_email">Failed to send verification email</string>
 
     <!-- Success Messages -->
@@ -42,22 +41,21 @@
     <string name="preferences_saved">Preferences saved successfully</string>
     <string name="error_invalid_distance">Distance must be between 1 and 100 km</string>
     <string name="error_invalid_number">Please enter a valid number</string>
+
+    <!-- Profile -->
     <string name="enter_your_name">Enter your name</string>
     <string name="your_name">Your Name</string>
     <string name="bio">Bio</string>
     <string name="tell_something_about_yourself">Tell something about yourself</string>
     <string name="save_profile">Save Profile</string>
-    <string name="todo">TODO</string>
     <string name="upload_pet_photo">Upload Pet Photo</string>
     <string name="pet_name">Pet Name</string>
-    <string name="enter_your_pet_s_name">Enter your pet\'s name</string>
+    <string name="enter_your_pets_name">Enter your pet\'s name</string>
     <string name="upload_photo">Upload Photo</string>
     <string name="basic_information">Basic Information</string>
-    <string name="e">Pet Name</string>
     <string name="age_in_years">Age (in years)</string>
     <string name="personality">Personality</string>
-    <string name="pet_profile_created">f</string>
-    <string name="welcome_to_PawMatch">Welcome to PawMatch</string>
+    <string name="pet_profile_created">Pet profile created successfully</string>
     <string name="manage_vaccinations">Manage Vaccinations</string>
     <string name="manage_medical_conditions">Manage Medical Conditions</string>
     <string name="health_profile">Health Profile</string>
@@ -70,20 +68,7 @@
     <string name="energy_level">Energy Level</string>
     <string name="manage_medications">Manage Medications</string>
     <string name="manage_vet_appointments">Manage Vet Appointments</string>
-    <string name="save_profilex">Save Profile</string>
-    <string name="welcome_to_pawmatchh">Welcome to PawMatch</string>
-    <string name="emaill">Email</string>
-    <string name="passwordd">Password</string>
-    <string name="sign_inm">Sign In</string>
-    <string name="create_new_accounth">Create New Account</string>
-    <string name="gforgot_password">Forgot Password?</string>
     <string name="pet_image">Pet Image</string>
-    <string name="welcome_to_pawmatch">Welcome to PawMatch!</string>
-    <string name="welcome_text">Welcome text</string>
-    <string name="sign_up1">Sign Up</string>
-    <string name="sign_in1">Sign In</string>
-    <string name="welcome_to_pawmatch1">Welcome to PawMatch!</string>
-    <string name="welcome_text1">Welcome text for PawMatch</string>
-    <string name="random_card_content">random_card_content</string>
-
+    <string name="welcome_text">Welcome to PawMatch!</string>
+    <string name="random_card_content">Random Card Content</string>
 </resources>

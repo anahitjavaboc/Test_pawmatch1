@@ -69,11 +69,11 @@ dependencies {
     androidTestImplementation(libs.junit.v113)
     androidTestImplementation(libs.espresso.core.v340)
     implementation(libs.cardstack)
-    implementation (libs.cardstackview)
     implementation (libs.cardview)
     implementation (libs.material)
     implementation (libs.constraintlayout.v221)
     implementation (libs.glide)
+    implementation(libs.cardstackview)
 }
 
 

@@ -15,6 +15,7 @@ firebaseFirestore = "25.1.3"
 firebaseFirestoreVersion = "24.3.0"
 firebaseStorage = "21.0.1"
 firebaseStorageVersion = "20.2.0"
+githubCardstackview = "0.3.7"
 glide = "4.16.0"
 glideVersion = "4.14.2"
 googleServices = "4.4.2"
@@ -37,6 +38,7 @@ activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activ
 appcompat-v151 = { module = "androidx.appcompat:appcompat", version.ref = "appcompatVersion" }
 card-stack-view = { module = "com.yuyakaido.android:card-stack-view", version.ref = "cardStackView" }
 cardstackview = { module = "com.github.yuyakaido:CardStackView", version.ref = "cardstackviewVersion" }
+cardstackview-v037 = { module = "com.github.yuyakaido:CardStackView", version.ref = "githubCardstackview" }
 cardview = { module = "androidx.cardview:cardview", version.ref = "cardview" }
 circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
 constraintlayout-v214 = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayoutVersion" }
