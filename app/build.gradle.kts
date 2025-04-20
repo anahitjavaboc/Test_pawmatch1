@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.google.gms.google.services)  // Apply Google Services plugin
-    //alias(libs.plugins.kotlin.android)  // Apply Kotlin plugin
+    alias(libs.plugins.google.gms.google.services)
+    //alias(libs.plugins.kotlin.android)
 }
 
 android {
@@ -32,43 +32,42 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-//
+
 //    kotlinOptions {
-//        jvmTarget = "11"  // Match Java version
+//        jvmTarget = "11"
 //    }
-//}
+}
 
-    dependencies {
-        // Firebase dependencies
-        implementation(libs.firebase.auth)  // 23.2.0
-        implementation(libs.firebase.firestore)  // 25.1.3
-        implementation(libs.firebase.storage)  // 21.0.1
+dependencies {
+    // Firebase dependencies (update versions in libs.versions.toml if needed)
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.storage)
 
-        // Glide for image loading
-        implementation(libs.glide)  // 4.16.0
+    // Glide for image loading
+    implementation(libs.glide)
 
-        // CircleImageView for profile pictures
-        implementation(libs.circleimageview)  // 3.1.0
+    // CircleImageView for profile pictures
+    implementation(libs.circleimageview)
 
-        // CardStackView for swiping functionality
-        implementation(libs.cardstackview)  // com.github.yuyakaido:CardStackView:2.3.4
-        implementation(libs.cardview)  // 1.0.0
+    // CardStackView for swiping functionality
+    implementation(libs.cardstackview)
+    implementation(libs.cardview)
 
-        // Material Components for UI elements
-        implementation(libs.material)  // 1.12.0
+    // Material Components for UI elements
+    implementation(libs.material)
 
-        // AppCompat for backwards compatibility
-        implementation(libs.appcompat)  // 1.7.0
+    // AppCompat for backwards compatibility
+    implementation(libs.appcompat)
 
-        // Activity library for Activity-related functionality
-        implementation(libs.activity.ktx)  // 1.10.1
+    // Activity library for Activity-related functionality
+    implementation(libs.activity.ktx)
 
-        // ConstraintLayout for layouts
-        implementation(libs.constraintlayout)  // 2.2.1
+    // ConstraintLayout for layouts
+    implementation(libs.constraintlayout)
 
-        // Testing libraries
-        testImplementation(libs.junit)  // 4.13.2
-        //androidTestImplementation(libs.junit.ext)  // 1.2.1
-        androidTestImplementation(libs.espresso.core)  // 3.6.1
-    }
+    // Testing libraries
+    testImplementation(libs.junit)
+    //androidTestImplementation(libs.junit.ext)  // Uncommented for Android tests
+    androidTestImplementation(libs.espresso.core)
 }

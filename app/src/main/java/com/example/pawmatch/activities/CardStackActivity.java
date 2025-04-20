@@ -1,4 +1,4 @@
-package com.example.pawmatch.activities;
+package com.anahit.pawmatch.activities;
 
 import android.os.Bundle;
 import android.view.View;
