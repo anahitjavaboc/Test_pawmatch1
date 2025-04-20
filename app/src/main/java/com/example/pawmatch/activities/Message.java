@@ -1,5 +1,7 @@
 package com.example.pawmatch.activities;
 
+import androidx.annotation.NonNull;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -131,6 +133,7 @@ public class Message implements Comparable<Message>, Cloneable {
     }
 
     // Clone method for duplicating the object
+    @NonNull
     @Override
     public Message clone() {
         try {
@@ -163,6 +166,7 @@ public class Message implements Comparable<Message>, Cloneable {
     }
 
     // Debug-friendly string output
+    @NonNull
     @Override
     public String toString() {
         return "Message{" +

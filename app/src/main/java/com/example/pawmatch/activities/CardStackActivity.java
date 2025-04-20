@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.pawmatch.activities.CardStackAdapter;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
 import com.yuyakaido.android.cardstackview.CardStackView;
@@ -21,6 +23,7 @@ public class CardStackActivity extends AppCompatActivity implements CardStackLis
         // Initialize CardStackView
         CardStackView cardStackView = findViewById(R.id.card_stack_view);
         CardStackLayoutManager layoutManager = new CardStackLayoutManager(this, this);
+        Object SwipeableMethod = new Object();
         layoutManager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
         layoutManager.setDirections(Direction.HORIZONTAL);
         layoutManager.setSwipeThreshold(0.3f);

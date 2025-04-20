@@ -71,4 +71,13 @@
     <string name="pet_image">Pet Image</string>
     <string name="welcome_text">Welcome to PawMatch!</string>
     <string name="random_card_content">Random Card Content</string>
+    <string name="enter_your_pet_s_name">enter_your_pet_s_name</string>
+    <string name="enter_your_pet_s_name_">Enter your pet\'s name</string>
+    <string name="email_">Email</string>
+    <string name="password_">Password</string>
+    <string name="create_new_account_">Create New Account</string>
+    <string name="welcome_to_pawmatch_">Welcome To PawMatch</string>
+    <string name="sign_up_">Sign Up</string>
+    <string name="create_account_">Create Account</string>
+    <string name="back_to_sign_in_">Back To Sign In</string>
 </resources>

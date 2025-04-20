@@ -3,40 +3,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
+    android:background="#FDBDA7"
     android:gravity="center"
-    android:background="#FF7A52"> <!-- Custom orange background -->
+    android:orientation="vertical"
+    android:padding="16dp"> <!-- Custom orange background -->
 
 
-<!--    <com.yuyakaido.android.cardstackview.CardStackView-->
-<!--        android:id="@+id/card_stack_view"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        app:swipeThreshold="0.3"-->
-<!--        app:visibleCount="3" />-->
+    <!--    <com.yuyakaido.android.cardstackview.CardStackView-->
+    <!--        android:id="@+id/card_stack_view"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        app:swipeThreshold="0.3"-->
+    <!--        app:visibleCount="3" />-->
 
 
     <!-- Welcome Text -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="32dp"
+        android:contentDescription="@string/welcome_text1"
         android:text="Welcome to PawMatch"
         android:textSize="33sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="32dp"
-        android:layout_gravity="center"
-        android:contentDescription="@string/welcome_text1" />
+        android:textStyle="bold" />
 
     <!-- Sign In Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/signInButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="Sign In"
-        android:padding="8dp"
         android:layout_marginBottom="12dp"
         android:backgroundTint="@color/white"
+        android:padding="8dp"
+        android:text="Sign In"
         android:textColor="@color/orange_color"
         app:cornerRadius="50dp" /> <!-- Rounded corners -->
 
@@ -45,12 +45,11 @@
         android:id="@+id/signUpButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="Sign Up"
-        android:padding="8dp"
         android:backgroundTint="@color/white"
+        android:padding="8dp"
+        android:text="Sign Up"
         android:textColor="@color/orange_color"
         app:cornerRadius="50dp" /> <!-- Rounded corners -->
-
 
 
 </LinearLayout>
