@@ -32,6 +32,9 @@ public class Pet {
     public Pet(String whiskers, String cat, String siamese, String s, String small, String female, int i, int i1, int i2, boolean b, String s1) {
     }
 
+    public Pet(String url, String buddy, String s, String s1) {
+    }
+
     // Getters and Setters
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
